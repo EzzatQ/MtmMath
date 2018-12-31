@@ -1,6 +1,3 @@
-Fuck You hassan
-
-
 #include <iostream>
 
 #include "MtmVec.h"
