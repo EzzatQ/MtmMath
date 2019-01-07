@@ -24,7 +24,7 @@ MtmMat::~MtmMat(){
     delete[] values;
 }
 
-MtmMat& MtmMat::Operator=(const MtmMat& m){
+MtmMat& Operator=(const MtmMat& m){
     if(this == &m){
         return *this;
     }
