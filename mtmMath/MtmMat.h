@@ -9,16 +9,20 @@
 
 using std::size_t;
 
+typedef int T;
+
 namespace MtmMath {
 
-    template <typename T>
+    //template <typename T>
     class MtmMat {
+        T* values;
+        Dimensions dim;
     public:
         /*
          * Matrix constructor, dim_t is the dimension of the matrix and val is the initial value for the matrix elements
          */
         MtmMat(Dimensions dim_t, const T& val=T());
-
+    
         /*
          * Function that get function object f and uses it's () operator on each element in the matrix columns.
          * It outputs a vector in the size of the matrix columns where each element is the final output
