@@ -1,4 +1,5 @@
-#include "Complex.hpp"
+#include "Complex.h"
+using namespace MtmMath;
 
 Complex& Complex::operator+=(const Complex& c){
     re += c.re;
@@ -22,5 +23,11 @@ Complex operator-(const Complex& a, const Complex& b){
 
 bool Complex::operator==(const Complex& c) const {
     return re == c.re && im == c.im;
+}
+
+Complex& Complex::operator=(const Complex& c){
+    re = c.re;
+    im = c.im;
+    return *this;
 }
 

@@ -15,7 +15,7 @@ namespace MtmMath {
 
     //template <typename T>
     class MtmMat {
-        T* values;
+        MtmVec<MtmVec<T>> matrix;
         Dimensions dim;
     public:
         /*
@@ -27,6 +27,7 @@ namespace MtmMath {
         
         MtmMat(const MtmMat& m);
         
+        MtmMat& operator=(const MtmMat& mat);
     
         /*
          * Function that get function object f and uses it's () operator on each element in the matrix columns.

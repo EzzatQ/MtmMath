@@ -2,38 +2,35 @@
 #include "MtmMat.h"
 
 using namespace MtmMath;
-MtmMat::MtmMat(Dimensions dim_t, const T& val = T()){
-    size_t col = dim_t.getCol();
-    size_t row = dim_t.getRow();
-    values = new T[col*row];
-    for(int i = 0; i < col*row; i++){
-        values[i] = val;
+
+//template <class T>
+MtmMat::MtmMat(Dimensions dim_t, const T& val = T()):
+matrix(dim_t.getCol(),MtmVec<T>(dim_t.getRow(),val)) , dim(dim_t){}
+
+
+MtmMat::MtmMat(const MtmMat& mat): matrix(MtmVec<MtmVec<T>>(1,T())){
+    if(dim != mat.dim){
+        throw MtmExceptions::DimentionMismatch();
     }
+    matrix = mat.matrix;
+    dim = mat.dim;
 }
 
-MtmMat::MtmMat(const MtmMat& m){
-    size_t col = m.dim.getCol();
-    size_t row = m.dim.getRow();
-    MtmMat newMatrix(m.dim,0);
-    for(int i = 0; i < col*row; i++){
-        values[i] = m.values[i];
-    }
-}
+MtmMat::~MtmMat(){}
 
-MtmMat::~MtmMat(){
-    delete[] values;
-}
-
-MtmMat& Operator=(const MtmMat& m){
-    if(this == &m){
+MtmMat& MtmMat::operator=(const MtmMat& mat){
+    if(this == &mat){
         return *this;
     }
-    delete[] values;
-    size_t col = m.dim.getCol();
-    size_t row = m.dim.getRow();
-    MtmMat newMatrix(m.dim,0);
-    for(int i = 0; i < col*row; i++){
-        values[i] = m.values[i];
-    }
+    matrix = mat.matrix;
+    dim = mat.dim;
     return *this;
+}
+
+template <typename Func>
+MtmVec<T> MtmMat::matFunc(Func& f) const{
+    for(int i = 0; i < dim.getCol(); i++){
+        matrix[i].vecFunc(f);
+    }
+    return *f;
 }
