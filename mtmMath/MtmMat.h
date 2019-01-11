@@ -9,12 +9,13 @@
 
 using std::size_t;
 
-typedef int T;
+//typedef int T;
 
 namespace MtmMath {
 
-    //template <typename T>
+    template <typename T>
     class MtmMat {
+    public: ///////////////////////////////
         MtmVec<MtmVec<T>> matrix;
         Dimensions dim;
     public:
@@ -51,6 +52,20 @@ namespace MtmMath {
          * Performs transpose operation on matrix
          */
         virtual void transpose();
+        
+        MtmVec<T>& operator[](const int i){
+            if(i >= dim.getCol()){
+                throw MtmExceptions::AccessIllegalElement();
+            }
+            return matrix[i];
+        }
+        
+        const MtmVec<T>& operator[](const int i) const{
+            if(i >= dim.getCol()){
+                throw MtmExceptions::AccessIllegalElement();
+            }
+            return matrix[i];
+        }
 
     };
 }

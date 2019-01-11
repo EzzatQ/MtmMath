@@ -7,12 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		525A162C21E3710300C4FCC7 /* Complex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 525A162A21E3710300C4FCC7 /* Complex.cpp */; };
-		525A163021E3713A00C4FCC7 /* MtmVec.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 525A162F21E3713A00C4FCC7 /* MtmVec.cpp */; };
-		52DD215D21E78C8600F12AD7 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5299B97021DA27E200EC0FD5 /* main.cpp */; };
-		52DD215E21E78C8600F12AD7 /* MtmMatTriag.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 525A163321E3720000C4FCC7 /* MtmMatTriag.cpp */; };
-		52DD215F21E78C8600F12AD7 /* MtmMatSq.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 525A163121E371B100C4FCC7 /* MtmMatSq.cpp */; };
-		52DD216221E78C8600F12AD7 /* MtmMat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 525A162D21E3712800C4FCC7 /* MtmMat.cpp */; };
+		5254017E21E905A60026D534 /* Auxilaries.h in Sources */ = {isa = PBXBuildFile; fileRef = 5299B97521DA27E300EC0FD5 /* Auxilaries.h */; };
+		5254017F21E905A60026D534 /* MtmExceptions.h in Sources */ = {isa = PBXBuildFile; fileRef = 5299B97421DA27E300EC0FD5 /* MtmExceptions.h */; };
+		5254018021E905A60026D534 /* MtmMat.h in Sources */ = {isa = PBXBuildFile; fileRef = 5299B97321DA27E300EC0FD5 /* MtmMat.h */; };
+		5254018121E905A60026D534 /* MtmMat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 525A162D21E3712800C4FCC7 /* MtmMat.cpp */; };
+		5254018221E905A60026D534 /* MtmVec.h in Sources */ = {isa = PBXBuildFile; fileRef = 5299B97621DA27E300EC0FD5 /* MtmVec.h */; };
+		5254018321E905A60026D534 /* MtmVec.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 525A162F21E3713A00C4FCC7 /* MtmVec.cpp */; };
+		5254018821E90F6A0026D534 /* matrix_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5254017821E8FF3F0026D534 /* matrix_test.cpp */; };
+		5254018921E9111B0026D534 /* Complex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 525A162A21E3710300C4FCC7 /* Complex.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -28,6 +30,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		5254017821E8FF3F0026D534 /* matrix_test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = matrix_test.cpp; sourceTree = "<group>"; };
 		525A162A21E3710300C4FCC7 /* Complex.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Complex.cpp; sourceTree = "<group>"; };
 		525A162D21E3712800C4FCC7 /* MtmMat.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MtmMat.cpp; sourceTree = "<group>"; };
 		525A162F21E3713A00C4FCC7 /* MtmVec.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MtmVec.cpp; sourceTree = "<group>"; };
@@ -91,6 +94,7 @@
 				5299B96F21DA27E200EC0FD5 /* Complex.h */,
 				525A162A21E3710300C4FCC7 /* Complex.cpp */,
 				52DD215821E77D6E00F12AD7 /* vect_test.cpp */,
+				5254017821E8FF3F0026D534 /* matrix_test.cpp */,
 			);
 			path = mtmMath;
 			sourceTree = "<group>";
@@ -151,12 +155,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				52DD215D21E78C8600F12AD7 /* main.cpp in Sources */,
-				52DD215E21E78C8600F12AD7 /* MtmMatTriag.cpp in Sources */,
-				52DD215F21E78C8600F12AD7 /* MtmMatSq.cpp in Sources */,
-				52DD216221E78C8600F12AD7 /* MtmMat.cpp in Sources */,
-				525A162C21E3710300C4FCC7 /* Complex.cpp in Sources */,
-				525A163021E3713A00C4FCC7 /* MtmVec.cpp in Sources */,
+				5254018821E90F6A0026D534 /* matrix_test.cpp in Sources */,
+				5254017E21E905A60026D534 /* Auxilaries.h in Sources */,
+				5254017F21E905A60026D534 /* MtmExceptions.h in Sources */,
+				5254018021E905A60026D534 /* MtmMat.h in Sources */,
+				5254018921E9111B0026D534 /* Complex.cpp in Sources */,
+				5254018121E905A60026D534 /* MtmMat.cpp in Sources */,
+				5254018221E905A60026D534 /* MtmVec.h in Sources */,
+				5254018321E905A60026D534 /* MtmVec.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

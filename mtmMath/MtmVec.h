@@ -15,6 +15,7 @@ using std::vector;
 namespace MtmMath {
     template <typename T>
     class MtmVec {
+    public:////////////////////////
         vector<T> vect;
         typename vector<T>::iterator itr;
         bool column;
@@ -34,6 +35,7 @@ namespace MtmMath {
             itr = vect.begin();
             column = true;
         }
+
         
         /*
          * Vector copy constructor, v is the vector you want to copy, itr will be set to the beginning.
@@ -91,13 +93,22 @@ namespace MtmMath {
         }
         
         T& operator[](const int i){
+            if(i >= vect.size()) {
+                throw MtmExceptions::AccessIllegalElement();
+            }
             return vect[i];
         }
         
         const T& operator[](const int i) const{
+            if(i >= vect.size()){
+                throw MtmExceptions::AccessIllegalElement();
+            }
             return vect[i];
         }
         
+        size_t size(){
+            return vect.size();
+        }
 
         /*
          * Resizes a vector to dimension dim, new elements gets the value val.
@@ -108,11 +119,10 @@ namespace MtmMath {
             if(col != 1 && row != 1){
                 throw MtmExceptions::DimensionMismatch();
             }
-            if((column && row == 1) || (!column && col == 1)){
+            if((column && col != 1) || (!column && row != 1)){
                 throw MtmExceptions::DimensionMismatch();
             }
             size_t newDim = column ? col : row;
-            vect.shrink_to_fit();
             size_t oldDim = vect.size();
             if(newDim == oldDim) return;
             if(newDim > oldDim){
