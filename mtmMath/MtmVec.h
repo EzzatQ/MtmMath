@@ -96,6 +96,8 @@ namespace MtmMath {
         }
         
         T& operator[](const int i){
+            std::cout << "i = " << i << ", size = " << vect.size()<<   std::endl;
+            
             if(i >= vect.size()) {
                 throw MtmExceptions::AccessIllegalElement();
             }
