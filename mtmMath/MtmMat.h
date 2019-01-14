@@ -25,9 +25,7 @@ namespace MtmMath {
          */
         MtmMat(Dimensions dim_t, const T& val=T());
         
-        MtmMat(){
-            MtmMat(Dimensions(1, 1));
-        }
+        MtmMat(){ MtmMat(Dimensions(1, 1)); }
         
         ~MtmMat(); //
         
@@ -66,24 +64,7 @@ namespace MtmMath {
          */
         virtual void transpose();
         
-        MtmVec<T>& operator[](const int i){
-            size_t row = dim.getRow();
-            if(i >= row){
-                throw MtmExceptions::AccessIllegalElement();
-            }
-            MtmVec<T> a(row);
-            for(int j = 0; j < row; j++) {
-                a.vect[j] = matrix[j][i];
-            }
-            return a;
-        }
-        
-        const MtmVec<T>& operator[](const int i) const{//what to do here..?
-            if(i >= dim.getCol()){
-                throw MtmExceptions::AccessIllegalElement();
-            }
-            return matrix[i];
-        }
+        MtmVec<T>& operator[](const int i);
 
     };
     

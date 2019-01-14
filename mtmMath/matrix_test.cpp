@@ -10,7 +10,7 @@ void printMat(MtmMat<int> m){
     size_t col = m.dim.getCol();
     size_t row = m.dim.getRow();
     for(int i = 0; i < col; i++){
-        //td::cout << std::endl;
+        //std::cout << std::endl;
         for(int j = 0; j < row; j++){
             //std::cout << m.matrix[i][j] << " ";
         }
