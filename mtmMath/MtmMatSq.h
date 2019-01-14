@@ -20,7 +20,10 @@ namespace MtmMath {
         MtmMatSq (size_t m, const T& val=T()): \
                                         MtmMat<T>(Dimensions(m,m),val) {};
         ~MtmMatSq(){}; //
-        MtmMatSq(const MtmMat<T>& m):MtmMat<T>(m){};
+        MtmMatSq(const MtmMat<T>& m):MtmMat<T>(m){//what happens according to what?
+            if(m.dim.getCol()!=m.dim.getRow())
+                throw MtmExceptions::IllegalInitialization();
+            };
         MtmMatSq(const MtmMatSq& m):MtmMat<T>(m){};
         MtmMatSq& operator=(const MtmMatSq& mat);
         
@@ -37,6 +40,9 @@ namespace MtmMath {
          * It outputs a vector in the size of the matrix columns where each element is the final output
          * by the function object's * operator
          */
+        
+        
+        //////// what to do
         template <typename Func>
         MtmVec<T> matFunc(Func& f) const;
         

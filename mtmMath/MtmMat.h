@@ -62,13 +62,17 @@ namespace MtmMath {
         virtual void transpose();
         
         MtmVec<T>& operator[](const int i){
-            if(i >= dim.getCol()){
+            if(i >= dim.getRow()){
                 throw MtmExceptions::AccessIllegalElement();
             }
-            return matrix[i];
+            MtmVec<T> a;
+            for (int j = 0; j < dim.getRow(); j++) {
+                a.vect[j]= &matrix[j][i];
+            }
+            return &a;
         }
         
-        const MtmVec<T>& operator[](const int i) const{
+        const MtmVec<T>& operator[](const int i) const{//what to do here..?
             if(i >= dim.getCol()){
                 throw MtmExceptions::AccessIllegalElement();
             }

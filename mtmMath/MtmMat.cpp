@@ -171,3 +171,33 @@ MtmMat<T>& MtmMat<T>::operator*=(const MtmVec<T>& vec){
     }
     return this*=newMat;
 }
+
+
+///////things that need to be templated for all functions
+
+
+
+
+template <class T>
+T& operator+(T a,T b){
+    if(a!=nullptr)
+        return a+=b;
+}
+
+template <class T>
+T& operator-(T a,T b){
+    if(a!=nullptr)
+        return a-=b;
+}
+
+template <class T, class S>
+MtmMat<S>& operator*(MtmMat<S> a,T b){
+    if(a!=nullptr)
+        return a*=b;
+}
+
+
+
+
+
+

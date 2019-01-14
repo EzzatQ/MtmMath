@@ -22,8 +22,10 @@ namespace MtmMath {
          * Rectangular matrix (true means it is)
          */
         MtmMatTriag<T> (size_t m, const T& val=T(), bool isUpper_t=true);
-
-
+        ~MtmMatTriag<T>(){};
+        MtmMatTriag<T>(const MtmMatTriag<T>& m):MtmMat<T>(m){};
+        MtmMatTriag<T>(const MtmMat<T>& m);
+        MtmMatTriag<T>(const MtmMatSq<T>& m);//is this neccessery? sq is mat
     };
 
 }
