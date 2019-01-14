@@ -80,22 +80,22 @@
 		5299B96621DA27A100EC0FD5 /* mtmMath */ = {
 			isa = PBXGroup;
 			children = (
-				5299B97521DA27E300EC0FD5 /* Auxilaries.h */,
-				5299B96F21DA27E200EC0FD5 /* Complex.h */,
 				5299B96E21DA27E200EC0FD5 /* main_out */,
-				5299B97021DA27E200EC0FD5 /* main.cpp */,
-				525A162A21E3710300C4FCC7 /* Complex.cpp */,
-				525A163321E3720000C4FCC7 /* MtmMatTriag.cpp */,
-				5299B97421DA27E300EC0FD5 /* MtmExceptions.h */,
-				525A162D21E3712800C4FCC7 /* MtmMat.cpp */,
-				52ED1F5E21ECBE070053B0F8 /* matrix_test.cpp */,
 				52ED1F5F21ECBE070053B0F8 /* vect_test.cpp */,
+				52ED1F5E21ECBE070053B0F8 /* matrix_test.cpp */,
+				5299B97021DA27E200EC0FD5 /* main.cpp */,
+				5299B97521DA27E300EC0FD5 /* Auxilaries.h */,
+				5299B97421DA27E300EC0FD5 /* MtmExceptions.h */,
+				5299B96F21DA27E200EC0FD5 /* Complex.h */,
+				525A162A21E3710300C4FCC7 /* Complex.cpp */,
 				5299B97321DA27E300EC0FD5 /* MtmMat.h */,
-				525A163121E371B100C4FCC7 /* MtmMatSq.cpp */,
-				5299B97121DA27E200EC0FD5 /* MtmMatSq.h */,
-				5299B97221DA27E300EC0FD5 /* MtmMatTriag.h */,
+				525A162D21E3712800C4FCC7 /* MtmMat.cpp */,
 				5299B97621DA27E300EC0FD5 /* MtmVec.h */,
 				525A162F21E3713A00C4FCC7 /* MtmVec.cpp */,
+				5299B97121DA27E200EC0FD5 /* MtmMatSq.h */,
+				525A163121E371B100C4FCC7 /* MtmMatSq.cpp */,
+				5299B97221DA27E300EC0FD5 /* MtmMatTriag.h */,
+				525A163321E3720000C4FCC7 /* MtmMatTriag.cpp */,
 			);
 			path = mtmMath;
 			sourceTree = "<group>";

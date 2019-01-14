@@ -36,7 +36,6 @@ namespace MtmMath {
             return col;
         }
     };
-
 }
 
 #endif //EX3_AUXILARIES_H
