@@ -29,7 +29,6 @@
 
 /* Begin PBXFileReference section */
 		525A162A21E3710300C4FCC7 /* Complex.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Complex.cpp; sourceTree = "<group>"; };
-		525A162B21E3710300C4FCC7 /* Complex.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Complex.hpp; sourceTree = "<group>"; };
 		525A162D21E3712800C4FCC7 /* MtmMat.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MtmMat.cpp; sourceTree = "<group>"; };
 		525A162F21E3713A00C4FCC7 /* MtmVec.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MtmVec.cpp; sourceTree = "<group>"; };
 		525A163121E371B100C4FCC7 /* MtmMatSq.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MtmMatSq.cpp; sourceTree = "<group>"; };
@@ -81,8 +80,6 @@
 				5299B96E21DA27E200EC0FD5 /* main_out */,
 				5299B97021DA27E200EC0FD5 /* main.cpp */,
 				525A162A21E3710300C4FCC7 /* Complex.cpp */,
-				525A162B21E3710300C4FCC7 /* Complex.hpp */,
-				525A162F21E3713A00C4FCC7 /* MtmVec.cpp */,
 				525A163321E3720000C4FCC7 /* MtmMatTriag.cpp */,
 				5299B97421DA27E300EC0FD5 /* MtmExceptions.h */,
 				525A162D21E3712800C4FCC7 /* MtmMat.cpp */,
@@ -91,6 +88,7 @@
 				5299B97121DA27E200EC0FD5 /* MtmMatSq.h */,
 				5299B97221DA27E300EC0FD5 /* MtmMatTriag.h */,
 				5299B97621DA27E300EC0FD5 /* MtmVec.h */,
+				525A162F21E3713A00C4FCC7 /* MtmVec.cpp */,
 			);
 			path = mtmMath;
 			sourceTree = "<group>";

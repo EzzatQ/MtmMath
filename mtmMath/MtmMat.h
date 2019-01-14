@@ -15,7 +15,6 @@ namespace MtmMath {
 
     template <typename T>
     class MtmMat {
-    public: ///////////////////////////////
         MtmVec<MtmVec<T>> matrix;
         Dimensions dim;
     public:
@@ -62,14 +61,15 @@ namespace MtmMath {
         virtual void transpose();
         
         MtmVec<T>& operator[](const int i){
-            if(i >= dim.getRow()){
+            size_t row = dim.getRow();
+            if(i >= row){
                 throw MtmExceptions::AccessIllegalElement();
             }
-            MtmVec<T> a;
-            for (int j = 0; j < dim.getRow(); j++) {
-                a.vect[j]= &matrix[j][i];
+            MtmVec<T> a(row);
+            for (int j = 0; j < row; j++) {
+                a.vect[j]= matrix[j][i];
             }
-            return &a;
+            return a;
         }
         
         const MtmVec<T>& operator[](const int i) const{//what to do here..?

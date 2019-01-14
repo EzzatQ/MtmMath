@@ -7,7 +7,7 @@ using namespace MtmMath;
 template <class T>
 MtmMat<T>::MtmMat(Dimensions dim_t, const T& val):
 matrix(dim_t.getCol(),MtmVec<T>(dim_t.getRow(),val)) , dim(dim_t){
-    matrix.transpose(); // why??
+    matrix.transpose();
 }
 
 //the copy constructor
@@ -31,7 +31,7 @@ template <class T>
 MtmMat<T>& MtmMat<T>::operator=(const MtmMat& mat){
     if(this == &mat){
         return *this;
-    }// maybe SCL checks this
+    }
     matrix = mat.matrix;
     dim = mat.dim;
     return *this;
@@ -48,8 +48,6 @@ MtmVec<T> MtmMat<T>::matFunc(Func& f) const{
     }
     return output;
 }
-
-
 
 //what should it do exactly?
 //switch the places for col and row as arguments
@@ -79,13 +77,12 @@ void MtmMat<T>::reshape(Dimensions newDim){
             tempArr[i * col + j] = matrix[i][j];
         }
     }
-    resize(newDim);// this.resize?
+    resize(newDim);
     for(int i = 0; i < newCol; i++){
         for(int j = 0; j < newRow; j++){
             matrix[i][j] = tempArr[i * newCol + j];
         }
     }
-    //what if the values are complex?
     delete[] tempArr;
 }
 
@@ -106,26 +103,26 @@ void MtmMat<T>::transpose(){
 
 template <class T>
 MtmMat<T>& MtmMat<T>::operator+=(const MtmMat& mat){
-    matrix= mat + matrix;
+    matrix = matrix + mat;
     return *this;
 }
 
 template <class T>
 MtmMat<T>& MtmMat<T>::operator-=(const MtmMat& mat){
-    matrix= matrix - mat;
+    matrix = matrix - mat;
     return *this;
 }
 
 template <class T>
 MtmMat<T>& MtmMat<T>::operator+=(const T& s){
     MtmMat<T> mat(dim,s);
-    return matrix+= mat;
+    return matrix += mat;
 }
 
 template <class T>
 MtmMat<T>& MtmMat<T>::operator-=(const T& s){
     MtmMat<T> mat(dim,s);
-    return matrix-= mat;
+    return matrix -= mat;
 }
 
 template <class T>
@@ -141,7 +138,7 @@ MtmMat<T>& MtmMat<T>::operator*=(const MtmMat& mat){
             for (unsigned int m=0; m < rows; m++) {
                 sum+= matrix[i][m] * mat.matrix[m][j];
             }
-            result[i][j]=sum;
+            result[i][j] = sum;
         }
     }
     return &result;
