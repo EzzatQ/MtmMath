@@ -13,7 +13,7 @@ namespace MtmMath {
 
 
     template <typename T>
-    class MtmMatTriag : protected MtmMatSq<T>{
+    class MtmMatTriag : public MtmMatSq<T>{
     public:
 
         /*

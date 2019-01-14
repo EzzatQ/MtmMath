@@ -25,15 +25,18 @@ namespace MtmMath {
         
         class end_of_vector{};
         class start_of_vector{};
+        
         /*
          * Vector constructor, m is the number of elements in it and val is the initial value for the matrix elements
          */
-        MtmVec(size_t m, const T& val=T()){
-            for(int i = 0; i < m; i++){
-                vect.push_back(val);
-            }
+        MtmVec(size_t m, const T& val = T()){
+            vect = vector<T>(m,val);
             itr = vect.begin();
             column = true;
+        }
+        
+        MtmVec(){
+            MtmVec(1);
         }
 
         
@@ -126,7 +129,7 @@ namespace MtmMath {
             size_t oldDim = vect.size();
             if(newDim == oldDim) return;
             if(newDim > oldDim){
-                int i = newDim - oldDim;
+                size_t i = newDim - oldDim;
                 while(i){
                     vect.push_back(val);
                     i--;

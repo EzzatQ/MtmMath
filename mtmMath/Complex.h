@@ -2,6 +2,7 @@
 #define EX3_COMPLEX_H
 namespace MtmMath {
     class Complex {
+    public:///////////////
         double re,im;
     public:
         Complex(double r = 0, double i = 0): re(r), im(i){}

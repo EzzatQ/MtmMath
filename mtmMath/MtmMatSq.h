@@ -11,7 +11,7 @@ using std::size_t;
 namespace MtmMath {
 
     template <typename T>
-    class MtmMatSq:protected MtmMat<T>{
+    class MtmMatSq : public MtmMat<T>{
     public:
         /*
          * Rectangular Matrix constructor, m is the number of rows and columns in the matrix
