@@ -24,12 +24,20 @@ namespace MtmMath {
          */
         MtmMat(Dimensions dim_t, const T& val=T());
         
-        ~MtmMat();
+        ~MtmMat(); //
         
         MtmMat(const MtmMat& m);
         
         MtmMat& operator=(const MtmMat& mat);
-    
+        
+        //might need changing
+        MtmMat& operator+=(const MtmMat& mat);
+        MtmMat& operator+=(const T& s);
+        MtmMat& operator-=(const MtmMat& mat);
+        MtmMat& operator-=(const T& s);
+        MtmMat& operator*=(const MtmMat& mat);
+        MtmMat& operator*=(const T& s);
+        MtmMat& operator*=(const MtmVec<T>& vec);
         /*
          * Function that get function object f and uses it's () operator on each element in the matrix columns.
          * It outputs a vector in the size of the matrix columns where each element is the final output
