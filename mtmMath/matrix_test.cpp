@@ -9,13 +9,13 @@ using namespace MtmMath;
 void printMat(MtmMat<int> m){
     size_t col = m.dim.getCol();
     size_t row = m.dim.getRow();
-    for(int i = 0; i < col; i++){
-        //td::cout << std::endl;
-        for(int j = 0; j < row; j++){
-            //std::cout << m.matrix[i][j] << " ";
+    for(int i = 0; i < row; i++){
+        std::cout << std::endl;
+        for(int j = 0; j < col; j++){
+            std::cout << m.matrix[i][j] << " ";
         }
     }
-    //std::cout << std::endl << std::endl;
+    std::cout << std::endl << std::endl;
 }
 
 
@@ -27,11 +27,18 @@ int main(){
     printMat(m1);
     for(int i = 0; i < m1.dim.getRow(); i++){
         for(int j = 0; j < m1.dim.getCol(); j++){
-            m1[i][j] = i + j;
+            m1[i][j] = i * j;
         }
     }
+    printMat(m1);
+    m1[0][0] = 9;
+    //m1.transpose();
+    printMat(m1);
     printMat(m2);
     printMat(m3);
+    //MtmMat<int> m4 = m1 + m3;
+    //printMat(m4);
+    
     
     
     

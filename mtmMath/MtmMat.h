@@ -67,15 +67,10 @@ namespace MtmMath {
         virtual void transpose();
         
         MtmVec<T>& operator[](const int i){
-            size_t row = dim.getRow();
-            if(i >= row){
+            if(i >= dim.getCol()){
                 throw MtmExceptions::AccessIllegalElement();
             }
-            MtmVec<T> a(row);
-            for(int j = 0; j < row; j++) {
-                a.vect[j] = matrix[j][i];
-            }
-            return a;
+            return matrix[i];
         }
         
         const MtmVec<T>& operator[](const int i) const{//what to do here..?
@@ -90,8 +85,10 @@ namespace MtmMath {
     //the constructor
     template <class T>
     MtmMat<T>::MtmMat(Dimensions dim_t, const T& val):
-    matrix(dim_t.getCol(),MtmVec<T>(dim_t.getRow(),val)) , dim(dim_t){
+    matrix(dim_t.getRow(),MtmVec<T>(dim_t.getCol(),val)) , dim(dim_t){
+        for(int i = 0; i < dim_t.getRow(); i++){
         matrix.transpose();
+        }
     }
     
     //the copy constructor
@@ -123,8 +120,8 @@ namespace MtmMath {
     template <class T>
     template <typename Func>
     MtmVec<T> MtmMat<T>::matFunc(Func& f) const{
-        MtmVec<T> output(dim.getCol());
-        for(int i = 0; i < dim.getCol(); i++){
+        MtmVec<T> output(dim.getRow());
+        for(int i = 0; i < dim.getRow(); i++){
             output[i] = matrix[i].vecFunc(f);
         }
         return output;
@@ -136,10 +133,9 @@ namespace MtmMath {
     void MtmMat<T>::resize(Dimensions dim, const T& val){
         size_t newCol = dim.getCol();
         size_t newRow = dim.getRow();
-        matrix.resize(Dimensions(1, newCol), val);
-        size_t colSize = matrix.size();
-        for(int i = 0; i < colSize; i++){
-            matrix[i].resize(Dimensions(newRow,1), val);
+        matrix.resize(Dimensions(1, newRow), MtmVec<T>());//// its calling the matrix resize not the vect one
+        for(int i = 0; i < newRow; i++){
+            matrix[i].resize(Dimensions(newCol,1), val);
         }
     }
     
@@ -148,7 +144,7 @@ namespace MtmMath {
     template <class T>
     void MtmMat<T>::reshape(Dimensions newDim){
         size_t newCol = newDim.getCol(), newRow = newDim.getRow();
-        size_t col = dim.getCol(), row = dim.getCol();
+        size_t col = dim.getCol(), row = dim.getRow();
         if(newCol * newRow != col * row){
             throw MtmExceptions::DimensionMismatch();
         }
@@ -171,7 +167,7 @@ namespace MtmMath {
     //nice
     template<class T>
     void MtmMat<T>::transpose(){
-        size_t col = dim.getCol(), row = dim.getRow();
+        size_t row = dim.getRow(), col = dim.getCol();
         dim.transpose();
         MtmMat<T> temp(*this);
         reshape(Dimensions(col,row));
