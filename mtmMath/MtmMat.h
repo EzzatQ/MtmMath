@@ -169,20 +169,20 @@ namespace MtmMath {
             throw MtmExceptions::DimensionMismatch();
         }
         T* tempArr = new T[col*row];
-        for(int i = 0; i < row; i++){
-            for(int j = 0; j < col; j++){
-                tempArr[i * col + j] = matrix[i][j];
+        for(int j = 0; j < col; j++){
+            for(int i = 0; i < row; i++){
+                tempArr[j * row + i] = matrix[i][j];
             }
         }
         resize(newDim);
-        for(int i = 0; i < newCol; i++){
-            for(int j = 0; j < newRow; j++){
-                matrix[i][j] = tempArr[i * newCol + j];
+        int k = 0;
+        for(int j = 0; j < newCol; j++){
+            for(int i = 0; i < newRow; i++){
+                matrix[i][j] = tempArr[k++];
             }
         }
         delete[] tempArr;
     }
-    
     
     //nice
     template<class T>

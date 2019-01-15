@@ -51,21 +51,20 @@ int main(){
     MtmMat<int> m2(Dimensions(4,4), 1);
     MtmMat<int> m3(Dimensions(8,6), 2);
     MtmMat<int> m4;
-    printMat(m4);
+    printMat(m1);
     for(int i = 0; i < m1.dim.getRow(); i++){
         for(int j = 0; j < m1.dim.getCol(); j++){
-            m1[i][j] = i + j;
+            m1[i][j] = i + j * (int)m1.dim.getRow() ;
         }
     }
     printMat(m1);
-    m1.resize(Dimensions(7,9), 9);
+    m1.reshape(Dimensions(10,3));
     printMat(m1);
     m1.transpose();
-    
     printMat(m1);
-    printMat(m2);
-    printMat(m3);
-    printMat(m4);
+    //printMat(m2);
+    //printMat(m3);
+    //printMat(m4);
     //MtmMat<int> m4 = m1 + m3;
     //FuncExample();
     
