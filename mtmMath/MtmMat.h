@@ -63,7 +63,7 @@ namespace MtmMath {
         virtual void transpose();
         
         MtmVec<T>& operator[](const int i){
-            if(i >= dim.getCol()){
+            if(i >= dim.getRow()){
                 throw MtmExceptions::AccessIllegalElement();
             }
             return matrix[i];
@@ -184,18 +184,21 @@ namespace MtmMath {
         delete[] tempArr;
     }
     
-    //nice
+    
     template<class T>
     void MtmMat<T>::transpose(){
         size_t row = dim.getRow(), col = dim.getCol();
-        //dim.transpose();
-        matrix.transpose();
+        /*matrix.transpose();
         size_t size = matrix.size();
         for(int i = 0; i < size; i++){
             matrix[i].transpose();
-        }
+        }*/
         MtmMat<T> temp(*this);
-        reshape(Dimensions(col,row));
+        *this = MtmMat(Dimensions(col,row));
+        size_t tmp = col;
+        col = row;
+        row = tmp;
+        //reshape(Dimensions(col,row));
         for(int i = 0; i < col; i++){
             for(int j = 0; j < row; j++){
                 matrix[j][i] = temp[i][j];
