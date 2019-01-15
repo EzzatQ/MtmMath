@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		52466ACD21EE5CB800177F31 /* matrix_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52ED1F5E21ECBE070053B0F8 /* matrix_test.cpp */; };
 		525A163021E3713A00C4FCC7 /* MtmVec.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 525A162F21E3713A00C4FCC7 /* MtmVec.cpp */; };
 		52ED1F6221ECBE7E0053B0F8 /* Auxilaries.h in Sources */ = {isa = PBXBuildFile; fileRef = 5299B97521DA27E300EC0FD5 /* Auxilaries.h */; };
 		52ED1F6321ECBE7E0053B0F8 /* Complex.h in Sources */ = {isa = PBXBuildFile; fileRef = 5299B96F21DA27E200EC0FD5 /* Complex.h */; };
 		52ED1F6421ECBE7E0053B0F8 /* Complex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 525A162A21E3710300C4FCC7 /* Complex.cpp */; };
 		52ED1F6521ECBE7E0053B0F8 /* MtmExceptions.h in Sources */ = {isa = PBXBuildFile; fileRef = 5299B97421DA27E300EC0FD5 /* MtmExceptions.h */; };
 		52ED1F6621ECBE7E0053B0F8 /* MtmMat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 525A162D21E3712800C4FCC7 /* MtmMat.cpp */; };
-		52ED1F6721ECBE7E0053B0F8 /* matrix_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52ED1F5E21ECBE070053B0F8 /* matrix_test.cpp */; };
 		52ED1F6821ECBE7E0053B0F8 /* MtmMat.h in Sources */ = {isa = PBXBuildFile; fileRef = 5299B97321DA27E300EC0FD5 /* MtmMat.h */; };
 		52ED1F6921ECBE7E0053B0F8 /* MtmVec.h in Sources */ = {isa = PBXBuildFile; fileRef = 5299B97621DA27E300EC0FD5 /* MtmVec.h */; };
 /* End PBXBuildFile section */
@@ -46,6 +46,7 @@
 		5299B97421DA27E300EC0FD5 /* MtmExceptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MtmExceptions.h; sourceTree = "<group>"; };
 		5299B97521DA27E300EC0FD5 /* Auxilaries.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Auxilaries.h; sourceTree = "<group>"; };
 		5299B97621DA27E300EC0FD5 /* MtmVec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MtmVec.h; sourceTree = "<group>"; };
+		52CE2FC121ED406F00197B0A /* complex_test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = complex_test.cpp; sourceTree = "<group>"; };
 		52ED1F5E21ECBE070053B0F8 /* matrix_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = matrix_test.cpp; sourceTree = "<group>"; };
 		52ED1F5F21ECBE070053B0F8 /* vect_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vect_test.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -83,6 +84,7 @@
 				5299B96E21DA27E200EC0FD5 /* main_out */,
 				52ED1F5F21ECBE070053B0F8 /* vect_test.cpp */,
 				52ED1F5E21ECBE070053B0F8 /* matrix_test.cpp */,
+				52CE2FC121ED406F00197B0A /* complex_test.cpp */,
 				5299B97021DA27E200EC0FD5 /* main.cpp */,
 				5299B97521DA27E300EC0FD5 /* Auxilaries.h */,
 				5299B97421DA27E300EC0FD5 /* MtmExceptions.h */,
@@ -156,12 +158,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52466ACD21EE5CB800177F31 /* matrix_test.cpp in Sources */,
 				52ED1F6221ECBE7E0053B0F8 /* Auxilaries.h in Sources */,
 				52ED1F6321ECBE7E0053B0F8 /* Complex.h in Sources */,
 				52ED1F6421ECBE7E0053B0F8 /* Complex.cpp in Sources */,
 				52ED1F6521ECBE7E0053B0F8 /* MtmExceptions.h in Sources */,
 				52ED1F6621ECBE7E0053B0F8 /* MtmMat.cpp in Sources */,
-				52ED1F6721ECBE7E0053B0F8 /* matrix_test.cpp in Sources */,
 				52ED1F6821ECBE7E0053B0F8 /* MtmMat.h in Sources */,
 				52ED1F6921ECBE7E0053B0F8 /* MtmVec.h in Sources */,
 				525A163021E3713A00C4FCC7 /* MtmVec.cpp in Sources */,

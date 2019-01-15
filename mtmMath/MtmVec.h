@@ -110,6 +110,10 @@ namespace MtmMath {
             return vect[i];
         }
         
+        size_t size() const{
+            return vect.size();
+        }
+        
         size_t size(){
             return vect.size();
         }
@@ -123,17 +127,16 @@ namespace MtmMath {
             if(col != 1 && row != 1){
                 throw MtmExceptions::DimensionMismatch();
             }
-            if((column && col != 1) || (!column && row != 1)){
+            if(((column && col != 1) || (!column && row != 1))){
                 throw MtmExceptions::DimensionMismatch();
             }
-            size_t newDim = column ? col : row;
+            size_t newDim = column ? row : col;
             size_t oldDim = vect.size();
             if(newDim == oldDim) return;
             if(newDim > oldDim){
-                size_t i = newDim - oldDim;
-                while(i){
+                while(oldDim != newDim){
                     vect.push_back(val);
-                    i--;
+                    oldDim++;
                 }
             }
             if(newDim < oldDim){
@@ -148,13 +151,23 @@ namespace MtmMath {
          * Performs transpose operation on matrix
          */
         void transpose(){
-            column = false;
+            column = !column;
         }
-            
+        
+        void push_back(const T& val){
+            vect.push_back(val);
+        }
+        
+        void pop_back(){
+            vect.pop_back();
+        }
+        
+        bool is_column() const{
+            return column;
+        }
+        
         
     };
 }
-
-//template<classT>
 
 #endif //EX3_MTMVEC_H

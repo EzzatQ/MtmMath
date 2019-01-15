@@ -23,13 +23,9 @@ namespace MtmMath {
         /*
          * Matrix constructor, dim_t is the dimension of the matrix and val is the initial value for the matrix elements
          */
-        MtmMat(Dimensions dim_t, const T& val=T());
+        MtmMat(Dimensions dim_t = Dimensions(1,1), const T& val=T());
         
-        MtmMat(){
-            MtmMat(Dimensions(1, 1));
-        }
-        
-        ~MtmMat(); //
+        ~MtmMat();
         
         MtmMat(const MtmMat& m);
         
@@ -73,7 +69,7 @@ namespace MtmMath {
             return matrix[i];
         }
         
-        const MtmVec<T>& operator[](const int i) const{//what to do here..?
+        const MtmVec<T>& operator[](const int i) const{
             if(i >= dim.getCol()){
                 throw MtmExceptions::AccessIllegalElement();
             }
@@ -87,7 +83,7 @@ namespace MtmMath {
     MtmMat<T>::MtmMat(Dimensions dim_t, const T& val):
     matrix(dim_t.getRow(),MtmVec<T>(dim_t.getCol(),val)) , dim(dim_t){
         for(int i = 0; i < dim_t.getRow(); i++){
-        matrix.transpose();
+            matrix[i].transpose();
         }
     }
     
@@ -116,13 +112,22 @@ namespace MtmMath {
     }
     
     
-    //who said func works on columns?
     template <class T>
     template <typename Func>
     MtmVec<T> MtmMat<T>::matFunc(Func& f) const{
-        MtmVec<T> output(dim.getRow());
-        for(int i = 0; i < dim.getRow(); i++){
-            output[i] = matrix[i].vecFunc(f);
+        MtmVec<T> output;
+        if(!matrix.is_column()){
+            output = MtmVec<T>(dim.getCol());
+            for(int i = 0; i < dim.getCol(); i++){
+                output[i] = matrix[i].vecFunc(f);
+            }
+        } else {
+            output = MtmVec<T>(dim.getCol());
+            MtmMat<T> temp(*this);
+            temp.transpose();
+            for(int i = 0; i < temp.dim.getCol(); i++){
+                output[i] = temp[i].vecFunc(f);
+            }
         }
         return output;
     }
@@ -130,17 +135,32 @@ namespace MtmMath {
     //what should it do exactly?
     //switch the places for col and row as arguments
     template <class T>
-    void MtmMat<T>::resize(Dimensions dim, const T& val){
-        size_t newCol = dim.getCol();
-        size_t newRow = dim.getRow();
-        matrix.resize(Dimensions(1, newRow), MtmVec<T>());//// its calling the matrix resize not the vect one
-        for(int i = 0; i < newRow; i++){
-            matrix[i].resize(Dimensions(newCol,1), val);
+    void MtmMat<T>::resize(Dimensions newDim, const T& val){
+         if(newDim == dim) return;
+        size_t newRow = newDim.getRow(), newCol = newDim.getCol();
+        size_t row = dim.getRow(), col = dim.getCol();
+        bool isCol = matrix.is_column();
+        size_t Old = isCol ? row : col;
+        size_t New = isCol ? newRow : newCol;
+        if(New < Old){
+            while(New != Old){
+                matrix.pop_back();
+                Old--;
+            }
+        } else if(New > Old){
+            while(New != Old){
+                matrix.push_back(MtmVec<T>());
+                Old++;
+            }
         }
+        dim = newDim;
+        for(int i = 0; i < New; i++){
+            if(matrix[0].is_column()){
+            matrix[i].resize(Dimensions(newRow,1), val);
+            } else matrix[i].resize(Dimensions(1,newCol), val);
+        } 
     }
     
-    
-    //
     template <class T>
     void MtmMat<T>::reshape(Dimensions newDim){
         size_t newCol = newDim.getCol(), newRow = newDim.getRow();
@@ -149,8 +169,8 @@ namespace MtmMath {
             throw MtmExceptions::DimensionMismatch();
         }
         T* tempArr = new T[col*row];
-        for(int i = 0; i < col; i++){
-            for(int j = 0; j < row; j++){
+        for(int i = 0; i < row; i++){
+            for(int j = 0; j < col; j++){
                 tempArr[i * col + j] = matrix[i][j];
             }
         }
@@ -168,7 +188,12 @@ namespace MtmMath {
     template<class T>
     void MtmMat<T>::transpose(){
         size_t row = dim.getRow(), col = dim.getCol();
-        dim.transpose();
+        //dim.transpose();
+        matrix.transpose();
+        size_t size = matrix.size();
+        for(int i = 0; i < size; i++){
+            matrix[i].transpose();
+        }
         MtmMat<T> temp(*this);
         reshape(Dimensions(col,row));
         for(int i = 0; i < col; i++){

@@ -10,9 +10,17 @@ namespace MtmMath {
         size_t row, col;
     public:
         Dimensions(size_t row_t = 0, size_t col_t = 0) : row(row_t), col(col_t) {}
+        
         std::string to_string() const {
             return "(" + std::to_string(row) + "," + std::to_string(col) + ")";
         }
+        
+        Dimensions& operator=(const Dimensions& dim){
+            row = dim.row;
+            col = dim.col;
+            return *this;
+        }
+        
 
         bool operator==(Dimensions dim2) const {
             return (row==dim2.row) and (col==dim2.col);
@@ -24,8 +32,8 @@ namespace MtmMath {
 
         void transpose() {
             size_t prev_row=row;
-            row=col;
-            col=prev_row;
+            row = col;
+            col = prev_row;
         }
 
         size_t getRow() const {

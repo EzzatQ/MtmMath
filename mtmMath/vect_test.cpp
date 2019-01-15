@@ -33,7 +33,7 @@ void printVect(MtmVec<int>& v){
 void printVect(MtmVec<Complex>& v){
     std::cout<<std::endl;
     for(int i = 0; i< v.vect.size(); i++){
-        std::cout << v[i].re << "," << v[i].im << "  ";
+        std::cout << v[i].real() << "," << v[i].imag() << "  ";
     }
 }
 
@@ -43,8 +43,16 @@ void fillvectfrom(MtmVec<int>& v, int j){
     }
 }
 
-int main(){
+int main1(){
     MtmVec<int> v1(10, 0);
+    std::cout << "size of v1 is: " << v1.size() << std::endl;
+    printVect(v1);
+    v1.resize(Dimensions(15,1), 100);
+    std::cout << "size of v1 is: " << v1.size() << std::endl;
+    v1.transpose();
+    v1.resize(Dimensions(1,13));
+    std::cout << "size of v1 is: " << v1.size() << std::endl;
+    printVect(v1);
     fillvectfrom(v1, 1);
     MtmVec<int> v2(10, 1);
     fillvectfrom(v2, 2);
