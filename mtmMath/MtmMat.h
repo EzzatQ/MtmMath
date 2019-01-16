@@ -105,7 +105,7 @@ namespace MtmMath {
                 newMat[0][i] = v[i];
             }
         }
-    }
+    } 
     
     
     //the copy constructor
@@ -374,58 +374,11 @@ namespace MtmMath {
         return c *= v;
     }
     
-    /*template <class T>
-    MtmMat<T>& MtmMat<T>::operator*=(const MtmVec<T>& vec){
-        size_t row = dim.getRow(), col = dim.getCol();
-        if(!vec.is_column() || vec.size() != col){
-            throw MtmExceptions::DimensionMismatch();
-        }
-        MtmMat<T> newMat(Dimensions(row, 1));
-        for (int i = 0; i < row;  i++){
-            int sum = 0;
-            for(int j = 0; j < col; j++){
-                sum += ((*this)[i][j] * vec[j]);
-            }
-            newMat[i][0] = sum;
-        }
-        (*this) = newMat;
-        return *this;
-    }
-    
-    template <class T>
-    MtmMat<T> operator*(const MtmMat<T>& m, const MtmVec<T>& vec){
-        MtmMat<T> c(m);
-        return c *= vec;
-    }*/
-    
     template<class T>
     MtmMat<T> operator*(const MtmVec<T>& a, const MtmVec<T>& b){
         MtmMat<T> c(a), d(b);
         return c * b;
     }
-    
-    
-    ///////things that need to be templated for all functions
-    
-    /*template <class T>
-    MtmMat<T> operator+(const MtmMat<T>& a,const MtmMat<T> b){
-        if(a != nullptr)
-            return a += b;
-    }
-    
-    template <class T>
-    T& operator-(T a,T b){
-        if(a != nullptr)
-            return a -= b;
-    }
-    
-    template <class T, class S>
-    MtmMat<S>& operator*(MtmMat<S> a,T b){
-        if(a != nullptr)
-            return a *= b;
-    }*/
-    
-    
 }
 
 

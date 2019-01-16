@@ -59,11 +59,14 @@ namespace MtmMath {
             return *this;
         }
         
+        MtmVec operator-();
         MtmVec& operator+=(const MtmVec& v);
         MtmVec& operator+=(const T& s);
         MtmVec& operator-=(const MtmVec& v);
         MtmVec& operator-=(const T& s);
         MtmVec& operator*=(const T& s);
+        bool operator==(const MtmVec<T>& v);
+        bool operator!=(const MtmVec<T>& v);
         
         
         typename vector<T>::iterator getItr() const{
@@ -129,29 +132,7 @@ namespace MtmMath {
          * Resizes a vector to dimension dim, new elements gets the value val.
          * Notice vector cannot transpose through this method.
          */
-        void resize(Dimensions dim, const T& val=T()){
-            size_t col = dim.getCol(), row = dim.getRow();
-            if(col != 1 && row != 1){
-                throw MtmExceptions::DimensionMismatch();
-            }
-            if(((column && col != 1) || (!column && row != 1))){
-                throw MtmExceptions::DimensionMismatch();
-            }
-            size_t newDim = column ? row : col;
-            size_t oldDim = vect.size();
-            if(newDim == oldDim) return;
-            if(newDim > oldDim){
-                while(oldDim != newDim){
-                    vect.push_back(val);
-                    oldDim++;
-                }
-            }
-            if(newDim < oldDim){
-                vect.resize(newDim);
-                vect.shrink_to_fit();
-            }
-            dim = newDim;
-        }
+        void resize(Dimensions dim, const T& val=T());
         
         
         /*
@@ -175,6 +156,145 @@ namespace MtmMath {
         
         
     };
+    
+    template <class T>
+    MtmVec<T> MtmVec<T>::operator-(){
+        MtmVec<T> a(*this);
+        for(int i  = 0; i < a.size(); i++){
+            a[i] = (*this)[i];
+        }
+        return a;
+    }
+    
+    template <class T>
+    MtmVec<T>& MtmVec<T>::operator+=(const MtmVec& v){
+        size_t thisSize = size();
+        if(thisSize != v.size()) {
+            throw MtmExceptions::DimensionMismatch();
+        }
+        for(int i = 0; i < thisSize; i++){
+            vect[i] += v[i];
+        }
+        return *this;
+    }
+    
+    template <class T>
+    MtmVec<T> operator+(const MtmVec<T>& v1, const MtmVec<T> v2){
+        MtmVec<T> v3(v1);
+        return v3 += v2;
+    }
+    
+    template <class T>
+    MtmVec<T>& MtmVec<T>::operator+=(const T& s){
+        for(int i = 0; i < size(); i++){
+            vect[i] += s;
+        }
+        return *this;
+    }
+    
+    template <class T>
+    MtmVec<T> operator+(const MtmVec<T>& v1, const T& s){
+        MtmVec<T> v2(v1);
+        return v2 += s;
+    }
+    
+    template <class T>
+    MtmVec<T> operator+(const T& s, const MtmVec<T>& v1){
+        MtmVec<T> v2(v1);
+        return v2 += s;
+    }
+    
+    template <class T>
+    MtmVec<T>& MtmVec<T>::operator-=(const MtmVec& v){
+        return (*this) += -v;
+    }
+    
+    template <class T>
+    MtmVec<T> operator-(const MtmVec<T>& v1, const MtmVec<T> v2){
+        MtmVec<T> v3(v1);
+        return v3 -= v2;
+    }
+    
+    template <class T>
+    MtmVec<T>& MtmVec<T>::operator-=(const T& s){
+        return (*this) += -s;
+    }
+    
+    template <class T>
+    MtmVec<T> operator-(const MtmVec<T>& v1, const T& s){
+        MtmVec<T> v2(v1);
+        return v2 -= s;
+    }
+    
+    template <class T>
+    MtmVec<T> operator-(const T& s, const MtmVec<T>& v1){
+        MtmVec<T> v2(v1);
+        return v2 -= s;
+    }
+    
+    template <class T>
+    MtmVec<T>& MtmVec<T>::operator*=(const T& s){
+        for(int i = 0; i < size(); i++){
+            vect[i] *= s;
+        }
+        return *this;
+    }
+    
+    template <class T>
+    MtmVec<T> operator*(const MtmVec<T>& v, const T& s){
+        MtmVec<T> v2(v);
+        return v2 *= s;
+    }
+    
+    template <class T>
+    MtmVec<T> operator*(const T& s, const MtmVec<T>& v){
+        return v * s;
+    }
+    
+    template <class T>
+    bool MtmVec<T>::operator==(const MtmVec<T>& v){
+        if(v.size() == (*this).size()){
+            for(int i = 0; i < v.size(); i++){
+                if(v[i] != (*this)[i])
+                    return false;
+            }
+            return true;
+        } else
+           return false;
+           }
+           
+           template<class T>
+           bool MtmVec<T>::operator!=(const MtmVec<T>& v){
+               return !(*this == v);
+           }
+    
+    template <class T>
+    void MtmVec<T>::resize(Dimensions dim, const T& val){
+        size_t col = dim.getCol(), row = dim.getRow();
+        if(col != 1 && row != 1){
+            throw MtmExceptions::DimensionMismatch();
+        }
+        if(((column && col != 1) || (!column && row != 1))){
+            throw MtmExceptions::DimensionMismatch();
+        }
+        size_t newDim = column ? row : col;
+        size_t oldDim = vect.size();
+        if(newDim == oldDim) return;
+        if(newDim > oldDim){
+            while(oldDim != newDim){
+                vect.push_back(val);
+                oldDim++;
+            }
+        }
+        if(newDim < oldDim){
+            vect.resize(newDim);
+            vect.shrink_to_fit();
+        }
+        dim = newDim;
+    }
+        
+    
+        
 }
 
 #endif //EX3_MTMVEC_H
