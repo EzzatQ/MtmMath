@@ -29,7 +29,7 @@ namespace MtmMath {
         /*
          * Vector constructor, m is the number of elements in it and val is the initial value for the matrix elements
          */
-        MtmVec(size_t m, const T& val = T()){
+        explicit MtmVec(size_t m, const T& val = T()){
             vect = vector<T>(m,val);
             itr = vect.begin();
             column = true;
@@ -58,6 +58,13 @@ namespace MtmMath {
             column = v.column;
             return *this;
         }
+        
+        MtmVec& operator+=(const MtmVec& v);
+        MtmVec& operator+=(const T& s);
+        MtmVec& operator-=(const MtmVec& v);
+        MtmVec& operator-=(const T& s);
+        MtmVec& operator*=(const T& s);
+        
         
         typename vector<T>::iterator getItr() const{
             return itr;
