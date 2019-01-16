@@ -32,13 +32,14 @@ namespace MtmMath {
         MtmMat& operator=(const MtmMat& mat);
         
         //might need changing
-        MtmMat& operator+=(const MtmMat& mat);
+        MtmMat& operator-();
+        MtmMat& operator+=(const MtmMat& m);
         MtmMat& operator+=(const T& s);
-        MtmMat& operator-=(const MtmMat& mat);
+        MtmMat& operator-=(const MtmMat& m);
         MtmMat& operator-=(const T& s);
-        MtmMat& operator*=(const MtmMat& mat);
+        MtmMat& operator*=(const MtmMat& m);
         MtmMat& operator*=(const T& s);
-        MtmMat& operator*=(const MtmVec<T>& vec);
+        MtmMat& operator*=(const MtmVec<T>& v);
         /*
          * Function that get function object f and uses it's () operator on each element in the matrix columns.
          * It outputs a vector in the size of the matrix columns where each element is the final output
@@ -102,7 +103,7 @@ namespace MtmMath {
     
     //the assigning operator
     template <class T>
-    MtmMat<T>& MtmMat<T>::operator=(const MtmMat& mat){
+    MtmMat<T>& MtmMat<T>::operator=(const MtmMat<T>& mat){
         if(this == &mat){
             return *this;
         }
@@ -116,24 +117,23 @@ namespace MtmMath {
     template <typename Func>
     MtmVec<T> MtmMat<T>::matFunc(Func& f) const{
         MtmVec<T> output;
+        size_t col = dim.getCol();
         if(!matrix.is_column()){
-            output = MtmVec<T>(dim.getCol());
-            for(int i = 0; i < dim.getCol(); i++){
+            output = MtmVec<T>(col);
+            for(int i = 0; i < col; i++){
                 output[i] = matrix[i].vecFunc(f);
             }
         } else {
-            output = MtmVec<T>(dim.getCol());
+            output = MtmVec<T>(col);
             MtmMat<T> temp(*this);
             temp.transpose();
-            for(int i = 0; i < temp.dim.getCol(); i++){
+            for(int i = 0; i < col; i++){
                 output[i] = temp[i].vecFunc(f);
             }
         }
         return output;
     }
     
-    //what should it do exactly?
-    //switch the places for col and row as arguments
     template <class T>
     void MtmMat<T>::resize(Dimensions newDim, const T& val){
          if(newDim == dim) return;
@@ -188,17 +188,11 @@ namespace MtmMath {
     template<class T>
     void MtmMat<T>::transpose(){
         size_t row = dim.getRow(), col = dim.getCol();
-        /*matrix.transpose();
-        size_t size = matrix.size();
-        for(int i = 0; i < size; i++){
-            matrix[i].transpose();
-        }*/
         MtmMat<T> temp(*this);
-        *this = MtmMat(Dimensions(col,row));
-        size_t tmp = col;
-        col = row;
-        row = tmp;
-        //reshape(Dimensions(col,row));
+        *this = MtmMat<T>(Dimensions(col,row));
+        size_t tmp = col;//???
+        col = row;//???
+        row = tmp;//???
         for(int i = 0; i < col; i++){
             for(int j = 0; j < row; j++){
                 matrix[j][i] = temp[i][j];
@@ -207,57 +201,113 @@ namespace MtmMath {
     }
     
     template <class T>
-    MtmMat<T>& MtmMat<T>::operator+=(const MtmMat& mat){
-        matrix = matrix + mat;
+    MtmMat<T>& MtmMat<T>::operator-(){
+        size_t row = dim.getRow(), col = dim.getCol();
+        for(int i = 0; i < row; i++){
+            for(int j = 0; j < col; j++){
+                (*this)[i][j] = -(*this)[i][j];
+            }
+        }
         return *this;
     }
     
     template <class T>
-    MtmMat<T>& MtmMat<T>::operator-=(const MtmMat& mat){
-        matrix = matrix - mat;
+    MtmMat<T>& MtmMat<T>::operator+=(const MtmMat<T>& m){
+        if(dim != m.dim){
+            throw MtmExceptions::DimensionMismatch();
+        }
+        size_t row = dim.getRow(), col = dim.getCol();
+        for(int i = 0; i < row; i++){
+            for(int j = 0; j < col; j++){
+                (*this)[i][j] += m[i][j];
+            }
+        }
         return *this;
+    }
+    
+    template <class T>
+    MtmMat<T> operator+(const MtmMat<T>& a, const MtmMat<T>& b){
+        MtmMat<T> c(a);
+        c += b;
+        return c;
     }
     
     template <class T>
     MtmMat<T>& MtmMat<T>::operator+=(const T& s){
-        MtmMat<T> mat(dim,s);
-        return matrix += mat;
+        size_t row = dim.getRow(), col = dim.getCol();
+        for(int i = 0; i < row; i++){
+            for(int j = 0; j < col; j++){
+                (*this)[i][j] += s;
+            }
+        }
+        return *this;
+    }
+    
+    template <class T>
+    MtmMat<T> operator+(const MtmMat<T>& a, const T& s){
+        MtmMat<T> c(a);
+        c += s;
+        return c;
+    }
+    
+    template <class T>
+    MtmMat<T>& MtmMat<T>::operator-=(const MtmMat<T>& m){
+        MtmMat<T> a(m);
+        return (*this) += -a;
+        
+    }
+    
+    template <class T>
+    MtmMat<T> operator-(const MtmMat<T>& a, const MtmMat<T>& b){
+        MtmMat<T> c(a);
+        MtmMat<T> d(b);
+        c += -d;
+        return c;
     }
     
     template <class T>
     MtmMat<T>& MtmMat<T>::operator-=(const T& s){
-        MtmMat<T> mat(dim,s);
-        return matrix -= mat;
+        return (*this) += -s;
     }
     
     template <class T>
-    MtmMat<T>& MtmMat<T>::operator*=(const MtmMat& mat){
-        size_t rows = mat.dim.getRow(), cols = mat.dim.getCol(), thisRows = dim.getRow();///////////// get row/col for mat
-        if(rows != dim.getCol()){
+    MtmMat<T> operator-(const MtmMat<T>& a, const T& s){
+        MtmMat<T> c(a);
+        c += -s;
+        return c;
+    }
+    
+    template <class T>
+    MtmMat<T>& MtmMat<T>::operator*=(const MtmMat<T>& m){
+        size_t mRow = m.dim.getRow(), mCol = m.dim.getCol();
+        size_t row = dim.getRow(), col = dim.getCol();
+        if(mRow != col){
             throw MtmExceptions::DimensionMismatch();
         }
-        MtmMat<T> result(Dimensions(thisRows,cols),T());
-        for (unsigned int i = 0; i < thisRows; i++) {
-            for (unsigned int j = 0; j < cols; j++) {
-                T sum = 0;//?
-                for (unsigned int m=0; m < rows; m++) {
-                    sum+= matrix[i][m] * mat.matrix[m][j];
+        MtmMat<T> result(Dimensions(mRow,col),T());
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < mCol; j++) {
+                T sum = 0;
+                for (int k = 0; k < row; k++) {
+                    sum+= (*this)[i][k] * m[k][j];
                 }
                 result[i][j] = sum;
             }
         }
-        return &result;
+        (*this) = result;
+        return *this;
     }
     
     template <class T>
     MtmMat<T>& MtmMat<T>::operator*=(const T& s){
-        size_t cols = dim.getCol();
-        MtmMat<T> newMat(Dimensions(cols,cols),0); //is it legal?
-        for (int i = 0; i < cols; i++) {
+        size_t col = dim.getCol();
+        MtmMat<T> newMat(Dimensions(col,col),0);
+        for (int i = 0; i < col; i++) {
             newMat[i][i] = s;
         }
-        return this*=newMat;
+        return (*this) *= newMat;
     }
+    
     template <class T>
     MtmMat<T>& MtmMat<T>::operator*=(const MtmVec<T>& vec){
         Dimensions d(vec.size(),1);
@@ -277,11 +327,8 @@ namespace MtmMath {
     
     ///////things that need to be templated for all functions
     
-    
-    
-    
-    template <class T>
-    T& operator+(T a,T b){
+    /*template <class T>
+    MtmMat<T> operator+(const MtmMat<T>& a,const MtmMat<T> b){
         if(a != nullptr)
             return a += b;
     }
@@ -296,7 +343,7 @@ namespace MtmMath {
     MtmMat<S>& operator*(MtmMat<S> a,T b){
         if(a != nullptr)
             return a *= b;
-    }
+    }*/
     
     
 }

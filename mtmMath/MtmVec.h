@@ -89,14 +89,14 @@ namespace MtmMath {
          */
         template <typename Func>
         T vecFunc(Func& f) const{
+            Func g;
             for(int i = 0; i < vect.size(); i++){
-                f(vect[i]);
+                g(vect[i]);
             }
-            return *f;///////////
+            return *g;
         }
         
         T& operator[](const int i){
-            //std::cout << "i = " << i << ", size = " << vect.size()<<   std::endl;
             if(i >= vect.size()) {
                 throw MtmExceptions::AccessIllegalElement();
             }

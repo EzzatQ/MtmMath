@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		52466ACD21EE5CB800177F31 /* matrix_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52ED1F5E21ECBE070053B0F8 /* matrix_test.cpp */; };
+		52466AD021EEBB7B00177F31 /* matrix_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52ED1F5E21ECBE070053B0F8 /* matrix_test.cpp */; };
 		525A163021E3713A00C4FCC7 /* MtmVec.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 525A162F21E3713A00C4FCC7 /* MtmVec.cpp */; };
 		52ED1F6221ECBE7E0053B0F8 /* Auxilaries.h in Sources */ = {isa = PBXBuildFile; fileRef = 5299B97521DA27E300EC0FD5 /* Auxilaries.h */; };
 		52ED1F6321ECBE7E0053B0F8 /* Complex.h in Sources */ = {isa = PBXBuildFile; fileRef = 5299B96F21DA27E200EC0FD5 /* Complex.h */; };
@@ -158,7 +158,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				52466ACD21EE5CB800177F31 /* matrix_test.cpp in Sources */,
+				52466AD021EEBB7B00177F31 /* matrix_test.cpp in Sources */,
 				52ED1F6221ECBE7E0053B0F8 /* Auxilaries.h in Sources */,
 				52ED1F6321ECBE7E0053B0F8 /* Complex.h in Sources */,
 				52ED1F6421ECBE7E0053B0F8 /* Complex.cpp in Sources */,
