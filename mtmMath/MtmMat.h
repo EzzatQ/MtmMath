@@ -25,7 +25,9 @@ namespace MtmMath {
          */
         MtmMat(Dimensions dim_t = Dimensions(1,1), const T& val=T());
         
-        ~MtmMat();
+        explicit MtmMat(const MtmVec<T>& v);
+        
+        virtual ~MtmMat();
         
         MtmMat(const MtmMat& m);
         
@@ -87,6 +89,24 @@ namespace MtmMath {
             matrix[i].transpose();
         }
     }
+    
+    template<class T>
+    MtmMat<T>::MtmMat(const MtmVec<T>& v){
+        bool isCol = v.is_column();
+        size_t size = v.size();
+        if(isCol){
+            MtmMat<T> newMat(Dimensions(size, 1));
+            for(int i = 0; i < size; i++){
+                newMat[i][0] = v[i];
+            }
+        } else{
+            MtmMat<T> newMat(Dimensions(1, size));
+            for(int i = 0; i < size; i++){
+                newMat[0][i] = v[i];
+            }
+        }
+    }
+    
     
     //the copy constructor
     template <class T>
@@ -190,9 +210,7 @@ namespace MtmMath {
         size_t row = dim.getRow(), col = dim.getCol();
         MtmMat<T> temp(*this);
         *this = MtmMat<T>(Dimensions(col,row));
-        size_t tmp = col;//???
-        col = row;//???
-        row = tmp;//???
+        dim.transpose();
         for(int i = 0; i < col; i++){
             for(int j = 0; j < row; j++){
                 matrix[j][i] = temp[i][j];
@@ -299,6 +317,12 @@ namespace MtmMath {
     }
     
     template <class T>
+    MtmMat<T> operator*(const MtmMat<T>& a, const MtmMat<T>& b){
+        MtmMat<T> c(b);
+        return c *= a;
+    }
+    
+    template <class T>
     MtmMat<T>& MtmMat<T>::operator*=(const T& s){
         size_t col = dim.getCol();
         MtmMat<T> newMat(Dimensions(col,col),0);
@@ -309,19 +333,75 @@ namespace MtmMath {
     }
     
     template <class T>
+    MtmMat<T> operator*(const MtmMat<T>& a, const T& s){
+        MtmMat<T> c(a);
+        return c *= s;
+    }
+    
+    template <class T>
+    MtmMat<T> operator*(const T& s, const MtmMat<T>& a){
+        MtmMat<T> c = MtmMat<T>(a * s);
+        return c;
+    }
+    
+    template <class T>
     MtmMat<T>& MtmMat<T>::operator*=(const MtmVec<T>& vec){
-        Dimensions d(vec.size(),1);
-        if(!vec.column)
-            d.transpose();
-        MtmMat<T> newMat(d,T());
-        int m = 0;
-        for (int j = 0; j < d.getCol(); j++) {
-            for (int i = 0; i < d.getRow(); i++) {
-                newMat[i][j] = vec[m];
-                m++;
-            }
+        size_t row = dim.getRow(), col = dim.getCol();
+        if(!vec.is_column() || vec.size() != col){
+            throw MtmExceptions::DimensionMismatch();
         }
-        return this*=newMat;
+        MtmMat<T> newMat(Dimensions(row, 1));
+        for (int i = 0; i < row;  i++){
+            int sum = 0;
+            for(int j = 0; j < col; j++){
+                sum += ((*this)[i][j] * vec[j]);
+            }
+            newMat[i][0] = sum;
+        }
+        (*this) = newMat;
+        return *this;
+    }
+    
+    template <class T>
+    MtmMat<T> operator*(const MtmMat<T>& m, const MtmVec<T>& vec){
+        MtmMat<T> c(m);
+        return c *= vec;
+    }
+    
+    template <class T>
+    MtmMat<T> operator*(const MtmVec<T>& m, const MtmMat<T>& vec){
+        MtmMat<T> c(m);
+        return c *= vec;
+    }
+    
+    /*template <class T>
+    MtmMat<T>& MtmMat<T>::operator*=(const MtmVec<T>& vec){
+        size_t row = dim.getRow(), col = dim.getCol();
+        if(!vec.is_column() || vec.size() != col){
+            throw MtmExceptions::DimensionMismatch();
+        }
+        MtmMat<T> newMat(Dimensions(row, 1));
+        for (int i = 0; i < row;  i++){
+            int sum = 0;
+            for(int j = 0; j < col; j++){
+                sum += ((*this)[i][j] * vec[j]);
+            }
+            newMat[i][0] = sum;
+        }
+        (*this) = newMat;
+        return *this;
+    }
+    
+    template <class T>
+    MtmMat<T> operator*(const MtmMat<T>& m, const MtmVec<T>& vec){
+        MtmMat<T> c(m);
+        return c *= vec;
+    }*/
+    
+    template<class T>
+    MtmMat<T> operator*(const MtmVec<T>& a, const MtmVec<T>& b){
+        MtmMat<T> c(a), d(b);
+        return c * b;
     }
     
     

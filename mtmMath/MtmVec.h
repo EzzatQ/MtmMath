@@ -15,7 +15,7 @@ using std::vector;
 namespace MtmMath {
     template <typename T>
     class MtmVec {
-    public:////////////////////////
+   // public:////////////////////////
         vector<T> vect;
         typename vector<T>::iterator itr;
         bool column;

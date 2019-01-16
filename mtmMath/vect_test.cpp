@@ -24,7 +24,7 @@ void FuncExample() {
 
 void printVect(MtmVec<int>& v){
     std::cout<<std::endl;
-    for(int i = 0; i< v.vect.size(); i++){
+    for(int i = 0; i< v.size(); i++){
             std::cout << v[i] << "  ";
         }
     
@@ -32,13 +32,13 @@ void printVect(MtmVec<int>& v){
 
 void printVect(MtmVec<Complex>& v){
     std::cout<<std::endl;
-    for(int i = 0; i< v.vect.size(); i++){
+    for(int i = 0; i< v.size(); i++){
         std::cout << v[i].real() << "," << v[i].imag() << "  ";
     }
 }
 
 void fillvectfrom(MtmVec<int>& v, int j){
-    for(int i = 0; i < v.vect.size();i++, j++){
+    for(int i = 0; i < v.size();i++, j++){
         v[i] = j;
     }
 }

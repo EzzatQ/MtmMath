@@ -9,7 +9,7 @@ using namespace MtmMath;
 
 void printVect(MtmVec<int>& v){
     std::cout<<std::endl;
-    for(int i = 0; i< v.vect.size(); i++){
+    for(int i = 0; i< v.size(); i++){
         std::cout << v[i] << "  ";
     }
 }
@@ -53,18 +53,19 @@ void FuncExample() {
 
 
 int main(){
-    Dimensions a = Dimensions(2,2);
+    Dimensions a = Dimensions(2, 1);
     Dimensions b = Dimensions(2,2);
     MtmMat<int> m1(a, 1);
     MtmMat<int> m2(b, 2);
     MtmMat<int> m3(a, 3);
-    m1 *= m2;
+    MtmVec<int> v1(2, 5);
+    //m1 = m2 * m3;
+    //printMat(m1);
+    m1 = 5 * m2;
     printMat(m1);
-    m1 *= 5;
-    printMat(m1);
-    m1 = m2 - m3;
-    printMat(m1);
-    m1 = m2 - 5;
+    //m1 = v1 * m2;
+    //printMat(m1);
+    m1 = m2 * v1;
     printMat(m1);
     /*for(int i = 0; i < m1.dim.getRow(); i++){
         for(int j = 0; j < m1.dim.getCol(); j++){

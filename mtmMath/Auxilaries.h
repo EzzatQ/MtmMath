@@ -2,6 +2,7 @@
 #define EX3_AUXILARIES_H
 #include <string>
 #include <iostream>
+#include "MtmExceptions.h"
 
 using std::size_t;
 
@@ -9,7 +10,11 @@ namespace MtmMath {
     class Dimensions {
         size_t row, col;
     public:
-        Dimensions(size_t row_t = 0, size_t col_t = 0) : row(row_t), col(col_t) {}
+        Dimensions(size_t row_t = 0, size_t col_t = 0) : row(row_t), col(col_t) {
+            if(row_t <= 0 || col_t <= 0){
+                //throw MtmExcetions::IllegalInitialization();
+            }
+        }
         
         std::string to_string() const {
             return "(" + std::to_string(row) + "," + std::to_string(col) + ")";
