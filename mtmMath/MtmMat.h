@@ -19,6 +19,46 @@ namespace MtmMath {
         //protected:
         MtmVec<MtmVec<T> > matrix;
         Dimensions dim;
+        
+        class Iterator {
+            MtmVec<MtmVec<T> >& data;
+            int row;
+            int col;
+        public:
+            Iterator(MtmMat<T>& a, int i = 0, int j = 0): data(a.matrix){
+                row = i;
+                col = j;
+            }
+            void operator=(Iterator a){
+                row = a.row;
+                col = a.col;
+                data = a.data;
+            }
+            Iterator& operator++(){
+                if(row < data.size()){
+                    row++;
+                }else{
+                    row = 0;
+                    if(col < data[0].size()){
+                        col++;
+                    }else{
+                        row = 0;
+                    }
+                }
+                return *this;
+            }
+            T& operator*(){
+                return this->data[row][col];
+            }
+            bool operator==(Iterator a){
+                if(this->data == a.data){
+                    return (this->row == a.row)&&(this->col == a.col);
+                }else
+                    return false;
+                    
+                
+            }
+        };
     public:
         /*
          * Matrix constructor, dim_t is the dimension of the matrix and val is the initial value for the matrix elements
@@ -77,6 +117,10 @@ namespace MtmMath {
                 throw MtmExceptions::AccessIllegalElement();
             }
             return matrix[i];
+        }
+        Iterator iterator_begin(){
+            Iterator a(*this);
+            return a;
         }
 
     };
