@@ -15,7 +15,7 @@ Complex& Complex::operator+=(const Complex& c){
 
 Complex operator+(const Complex& a, const Complex& b){
     Complex c = a;
-    return c +=b;
+    return c += b;
 }
 
 Complex& Complex::operator-=(const Complex& c){
@@ -24,7 +24,7 @@ Complex& Complex::operator-=(const Complex& c){
 
 Complex operator-(const Complex& a, const Complex& b){
     Complex c = a;
-    return c -=b;
+    return c -= b;
 }
 
 bool Complex::operator==(const Complex& c) const {

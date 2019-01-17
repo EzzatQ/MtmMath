@@ -10,17 +10,22 @@ namespace MtmMath {
         Complex& operator+=(const Complex& c);
         bool operator==(const Complex& c) const;
         bool operator!=(const Complex& c) const { return !operator==(c);}
-        friend Complex operator+(const Complex& a, const Complex& b);
         Complex& operator-=(const Complex& c);
-        friend Complex operator-(const Complex& a, const Complex& b);
         Complex operator-() const {return Complex(-re, -im);}
         Complex& operator*=(const Complex& c);
-        friend Complex operator*(const Complex& a, const Complex& b);
         Complex& operator/=(const Complex& c);
-        friend Complex operator/(const Complex& a, const Complex& b);
         Complex conjugate(){im = -im; return *this;}
-        double real() { return re;}
-        double imag() { return im;}
+        double real() const { return re;}
+        double imag() const { return im;}
     };
+    
+    Complex operator+(const Complex& a, const Complex& b){
+        Complex c = a;
+        return c += b;
+    }
+    
+    Complex operator-(const Complex& a, const Complex& b);
+    Complex operator*(const Complex& a, const Complex& b);
+    Complex operator/(const Complex& a, const Complex& b);
 }
 #endif //EX3_COMPLEX_H

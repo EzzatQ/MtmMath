@@ -17,7 +17,6 @@ namespace MtmMath {
     class MtmVec {
    // public:////////////////////////
         vector<T> vect;
-        typename vector<T>::iterator itr;
         bool column;
 
         
@@ -31,7 +30,6 @@ namespace MtmMath {
          */
         explicit MtmVec(size_t m, const T& val = T()){
             vect = vector<T>(m,val);
-            itr = vect.begin();
             column = true;
         }
         
@@ -45,7 +43,6 @@ namespace MtmMath {
          */
         MtmVec(const MtmVec& v){
             vect = vector<T>(v.vect);
-            itr = vect.begin();
             column = v.column;
         }
         
@@ -54,7 +51,6 @@ namespace MtmMath {
          */
         MtmVec& operator=(const MtmVec& v){
             vect = v.vect;
-            itr = vect.begin();
             column = v.column;
             return *this;
         }
@@ -68,30 +64,6 @@ namespace MtmMath {
         bool operator==(const MtmVec<T>& v);
         bool operator!=(const MtmVec<T>& v);
         
-        
-        typename vector<T>::iterator getItr() const{
-            return itr;
-        }
-        
-        void resetItr(){
-            itr = vect.begin();
-        }
-        
-        void advanceItr(){
-            typename vector<T>::iterator temp = next(itr, 1);
-            if(temp == vect.end()){
-                return;//throw end_of_vector();
-            }
-            itr = temp;
-        }
-        
-        void reverseItr(){
-            typename vector<T>::iterator temp = prev(itr, 1);
-            if(temp == vect.begin()){
-                return; //throw start_of_vector();
-            }
-            itr = temp;
-        }
 
         /*
          * Function that get function object f and uses it's () operator on each element in the vectors.
@@ -126,6 +98,98 @@ namespace MtmMath {
         
         size_t size(){
             return vect.size();
+        }
+        
+        class nonzero_iterator;
+        class iterator{
+        protected:
+            MtmVec<T>* data;
+            int pos;
+            int endPos;
+        public:
+            
+            iterator(MtmVec<T>& a, int i = 0) : data(NULL){
+                if(i < 0){
+                    throw MtmExceptions::AccessIllegalElement();
+                }
+                data = &a;
+                pos = i;
+                endPos = a.size();
+            }
+            
+            iterator(const iterator& i){
+                iterator a(*(i.data), i.pos);
+                *this = a;
+            }
+            
+            iterator& operator=(const iterator& a){
+                pos = a.pos;
+                data = a.data;
+                endPos = a.endPos;
+                return *this;
+            }
+            
+            bool operator==(const iterator& a){
+                if(data != a.data) return false;
+                if(pos == a.pos) return true;
+                return false;
+            }
+            
+            bool operator!=(const iterator& a){
+                return !((*this) == a);
+            }
+            
+            virtual iterator& operator++(){
+                    pos++;
+                return *this;
+            }
+            
+            T& operator*(){
+                return (*(data))[pos];
+            }
+            /////////////
+            void printItr(){
+                std::cout << "itr is at (" << pos << ") \n";
+            }
+            ////////////
+        };
+        
+        iterator begin(){
+            iterator a(*this);
+            return a;
+        }
+        
+        iterator end(){
+            iterator a(*this, this->size());
+            return a;
+        }
+        
+        class nonzero_iterator: public iterator{
+        public:
+            
+            nonzero_iterator(MtmVec<T>& a, int i = 0): iterator(a){
+                if(*(*this) == 0) this->operator++();
+            }
+            
+            explicit nonzero_iterator(iterator i): iterator(*(i.getData())){}
+            
+            nonzero_iterator& operator++() override{
+                do{
+                    iterator::operator++();
+                } while(this->pos != this->endPos && *(*this) == 0);
+                return *this;
+            }
+            
+        };
+        
+        nonzero_iterator nzbegin(){
+            nonzero_iterator a(*this);
+            return a;
+        }
+        
+        nonzero_iterator nzend(){
+            nonzero_iterator a(*this, this->endPos);
+            return a;
         }
 
         /*
