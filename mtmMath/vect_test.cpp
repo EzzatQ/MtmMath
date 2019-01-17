@@ -40,16 +40,36 @@ void printVect(MtmVec<Complex>& v){
 }
 
 void fillvectfrom(MtmVec<int>& v, int j){
-    for(int i = 0; i < v.size();i++, j++){
-        v[i] = j;
+    for(MtmVec<int>::iterator i = v.begin(); i != v.end(); ++i , j++){
+        *i = j;
     }
 }
+
+void printNonZero(MtmVec<int>& v){
+     std::cout<<std::endl;
+    MtmVec<int>::iterator j = v.nzend();
+    for(MtmVec<int>::nonzero_iterator i = v.nzbegin(); i != j; ++i){
+        std::cout << *i << "  ";
+    }
+     std::cout<<std::endl;
+}
+
+void printNormal(MtmVec<int>& v){
+    std::cout<<std::endl;
+    MtmVec<int>::iterator j = v.end();
+    for(MtmVec<int>::iterator i = v.begin(); i != j; ++i){
+        std::cout << *i << "  ";
+    }
+    std::cout<<std::endl;
+}
+
 
 int main(){
     MtmVec<int> v1(10, 0);
     printVect(v1);
     v1.resize(Dimensions(15,1), 100);
-    printVect(v1);
+    printNormal(v1);
+    printNonZero(v1);
     v1.transpose();
     printVect(v1);
     v1.resize(Dimensions(1,13));

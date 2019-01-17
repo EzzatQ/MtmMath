@@ -6,6 +6,7 @@
 #include "MtmExceptions.h"
 #include "Auxilaries.h"
 #include "MtmVec.h"
+#include "Complex.h"
 
 using std::size_t;
 

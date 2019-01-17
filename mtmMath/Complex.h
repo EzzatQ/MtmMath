@@ -1,5 +1,6 @@
 #ifndef EX3_COMPLEX_H
 #define EX3_COMPLEX_H
+
 namespace MtmMath {
     class Complex {
         double re,im;
@@ -18,12 +19,7 @@ namespace MtmMath {
         double real() const { return re;}
         double imag() const { return im;}
     };
-    
-    Complex operator+(const Complex& a, const Complex& b){
-        Complex c = a;
-        return c += b;
-    }
-    
+    Complex operator+(const Complex& a, const Complex& b);
     Complex operator-(const Complex& a, const Complex& b);
     Complex operator*(const Complex& a, const Complex& b);
     Complex operator/(const Complex& a, const Complex& b);

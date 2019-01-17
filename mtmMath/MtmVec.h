@@ -108,13 +108,15 @@ namespace MtmMath {
             int endPos;
         public:
             
+            friend class nonzero_iterator;
+            
             iterator(MtmVec<T>& a, int i = 0) : data(NULL){
                 if(i < 0){
                     throw MtmExceptions::AccessIllegalElement();
                 }
                 data = &a;
                 pos = i;
-                endPos = a.size();
+                endPos = static_cast<int>(a.size());
             }
             
             iterator(const iterator& i){
@@ -160,7 +162,7 @@ namespace MtmMath {
         }
         
         iterator end(){
-            iterator a(*this, this->size());
+            iterator a(*this, static_cast<int>(this->size()));
             return a;
         }
         
@@ -171,7 +173,7 @@ namespace MtmMath {
                 if(*(*this) == 0) this->operator++();
             }
             
-            explicit nonzero_iterator(iterator i): iterator(*(i.getData())){}
+            explicit nonzero_iterator(iterator i, MtmVec<T>& a): iterator(a){}
             
             nonzero_iterator& operator++() override{
                 do{
@@ -188,8 +190,9 @@ namespace MtmMath {
         }
         
         nonzero_iterator nzend(){
-            nonzero_iterator a(*this, this->endPos);
-            return a;
+            iterator a(*this, static_cast<int>(this->size()));
+            nonzero_iterator b(a, *this);
+            return b;
         }
 
         /*
