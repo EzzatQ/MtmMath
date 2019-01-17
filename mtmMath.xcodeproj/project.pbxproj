@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		525A163021E3713A00C4FCC7 /* MtmVec.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 525A162F21E3713A00C4FCC7 /* MtmVec.cpp */; };
-		5284F59E21EFC2B500BE291F /* vect_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52ED1F5F21ECBE070053B0F8 /* vect_test.cpp */; };
+		52848E4A21EFF3D60068D1DD /* matrix_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52ED1F5E21ECBE070053B0F8 /* matrix_test.cpp */; };
 		52ED1F6221ECBE7E0053B0F8 /* Auxilaries.h in Sources */ = {isa = PBXBuildFile; fileRef = 5299B97521DA27E300EC0FD5 /* Auxilaries.h */; };
 		52ED1F6321ECBE7E0053B0F8 /* Complex.h in Sources */ = {isa = PBXBuildFile; fileRef = 5299B96F21DA27E200EC0FD5 /* Complex.h */; };
 		52ED1F6421ECBE7E0053B0F8 /* Complex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 525A162A21E3710300C4FCC7 /* Complex.cpp */; };
@@ -158,7 +158,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5284F59E21EFC2B500BE291F /* vect_test.cpp in Sources */,
+				52848E4A21EFF3D60068D1DD /* matrix_test.cpp in Sources */,
 				52ED1F6221ECBE7E0053B0F8 /* Auxilaries.h in Sources */,
 				52ED1F6321ECBE7E0053B0F8 /* Complex.h in Sources */,
 				52ED1F6421ECBE7E0053B0F8 /* Complex.cpp in Sources */,
@@ -288,7 +288,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = N6W2FVLFTJ;
+				DEVELOPMENT_TEAM = JJBXCYA32Y;
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -298,7 +298,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = N6W2FVLFTJ;
+				DEVELOPMENT_TEAM = JJBXCYA32Y;
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

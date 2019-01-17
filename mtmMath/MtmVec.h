@@ -255,7 +255,8 @@ namespace MtmMath {
     bool MtmVec<T>::operator==(const MtmVec<T>& v){
         if(v.size() == (*this).size()){
             for(int i = 0; i < v.size(); i++){
-                if(v[i] != (*this)[i])
+                T a = v[i], b = (*this)[i];
+                if(a != b)
                     return false;
             }
             return true;

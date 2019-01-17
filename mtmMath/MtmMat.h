@@ -14,52 +14,132 @@ using std::size_t;
 namespace MtmMath {
 
     template <typename T>
-    class MtmMat {
-    public:
-        //protected:
+    class MtmMat{
+    //public:
+        protected:
         MtmVec<MtmVec<T> > matrix;
         Dimensions dim;
         
-        class Iterator {
-            MtmVec<MtmVec<T> >& data;
+    public:
+        class iterator{
+        protected:
+            MtmMat<T>* data;
             int row;
             int col;
+            
         public:
-            Iterator(MtmMat<T>& a, int i = 0, int j = 0): data(a.matrix){
+            iterator(MtmMat<T>& a, int i = 0, int j = 0) : data(NULL){
+                if(i < 0 || j < 0){
+                    throw MtmExceptions::AccessIllegalElement();
+                }
+                data = &a;
                 row = i;
                 col = j;
             }
-            void operator=(Iterator a){
+        
+            iterator(const iterator& i){
+                iterator a(*(i.data), i.row, i.col);
+                *this = a;
+            }
+            
+            MtmMat<T>* const getData(){
+                return data;
+            }
+            
+            void setPosition(int i, int j){
+                row = i;
+                col = j;
+            }
+            
+            iterator& operator=(const iterator& a){
                 row = a.row;
                 col = a.col;
                 data = a.data;
+                return *this;
             }
-            Iterator& operator++(){
-                if(row < data.size()){
+            
+            bool operator==(const iterator& a){
+                if(data != a.data) return false;
+                if(row == a.row && col == a.col) return true;
+                return false;
+            }
+            
+            bool operator!=(const iterator& a){
+                return !((*this) == a);
+            }
+            
+            virtual iterator& operator++(){
+                if(row < data->dim.getRow() - 1){
                     row++;
-                }else{
+                } else {
                     row = 0;
-                    if(col < data[0].size()){
+                    if(col < data->dim.getCol() - 1){
                         col++;
-                    }else{
-                        row = 0;
+                    } else {
+                        col++;
                     }
                 }
                 return *this;
             }
+            
             T& operator*(){
-                return this->data[row][col];
+                return (*(data))[row][col];
             }
-            bool operator==(Iterator a){
-                if(this->data == a.data){
-                    return (this->row == a.row)&&(this->col == a.col);
-                }else
-                    return false;
-                    
-                
+            /////////////
+            void printItr(){
+                std::cout << "itr is at (" << row << "," << col << ") \n";
             }
+            ////////////
         };
-    public:
+        
+        iterator begin(){
+            iterator a(*this);
+            return a;
+        }
+        
+        iterator end(){
+            iterator a(*this, 0, static_cast<int>(dim.getCol()));
+            return a;
+        }
+        
+        class nonzero_iterator: public iterator{
+        public:
+            
+            nonzero_iterator(MtmMat<T>& a, int i = 0, int j = 0) : iterator(a){
+                if(*(*this) == 0) this->operator++();
+            }
+            
+            explicit nonzero_iterator(iterator i): iterator(*(i.getData())){}
+            
+            nonzero_iterator& operator++(){
+                do{
+                    if(this->row < this->data->dim.getRow() - 1){
+                        this->row++;
+                    } else {
+                        this->row = 0;
+                        if(this->col < this->data->dim.getCol() - 1){
+                            this->col++;
+                        } else {
+                            this->col++;
+                        }
+                    }
+                } while(*(*this) == 0);
+                return *this;
+            }
+            
+        };
+        
+        nonzero_iterator nzbegin(){
+            nonzero_iterator a(*this);
+            return a;
+        }
+        
+        nonzero_iterator nzend(){
+            nonzero_iterator a(this->begin());
+            a.setPosition(0, static_cast<int>(this->dim.getCol()));
+            return a;
+        }
+        
         /*
          * Matrix constructor, dim_t is the dimension of the matrix and val is the initial value for the matrix elements
          */
@@ -72,6 +152,10 @@ namespace MtmMath {
         MtmMat(const MtmMat& m);
         
         MtmMat& operator=(const MtmMat& mat);
+        
+        Dimensions getDim(){
+            return dim;
+        }
         
         //might need changing
         MtmMat& operator-();
@@ -118,10 +202,7 @@ namespace MtmMath {
             }
             return matrix[i];
         }
-        Iterator iterator_begin(){
-            Iterator a(*this);
-            return a;
-        }
+       
 
     };
     
@@ -149,7 +230,7 @@ namespace MtmMath {
                 newMat[0][i] = v[i];
             }
         }
-    } 
+    }
     
     
     //the copy constructor

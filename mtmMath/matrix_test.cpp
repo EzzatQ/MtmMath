@@ -15,12 +15,12 @@ void printVect(MtmVec<int>& v){
 }
 
 void printMat(MtmMat<int> m){
-    size_t col = m.dim.getCol();
-    size_t row = m.dim.getRow();
+    size_t col = m.getDim().getCol();
+    size_t row = m.getDim().getRow();
     for(int i = 0; i < row; i++){
         std::cout << std::endl;
         for(int j = 0; j < col; j++){
-            std::cout << m.matrix[i][j] << " ";
+            std::cout << m[i][j] << " ";
         }
     }
     std::cout << std::endl << std::endl;
@@ -65,13 +65,14 @@ int main(){
     printMat(m1);
     //m1 = v1 * m2;
     //printMat(m1);
-    m1 = m2 * v1;
+    m1 = m2;
     printMat(m1);
-    /*for(int i = 0; i < m1.dim.getRow(); i++){
-        for(int j = 0; j < m1.dim.getCol(); j++){
-            m1[i][j] = i + j * (int)m1.dim.getRow();
+    for(int i = 0; i < m1.getDim().getRow(); i++){
+        for(int j = 0; j < m1.getDim().getCol(); j++){
+            m1[i][j] = i + j * (int)m1.getDim().getRow();
+            m2[i][j] = i + j * (int)m2.getDim().getRow();
         }
-    }*/
+    }
     //printMat(m1);
     //m1.reshape(Dimensions(10,3));
     //printMat(m1);
@@ -82,6 +83,33 @@ int main(){
     //printMat(m4);
     //MtmMat<int> m4 = m1 + m3;
     //FuncExample();
+    std::cout << "we are testing this \n";
+    MtmMat<int> m4(Dimensions(15,4), 0);
+    
+    printMat(m4);
+    m4[14][3] = 9;
+    printMat(m4);
+    MtmMat<int>::nonzero_iterator p = m4.nzbegin();
+    
+    
+    (m4.nzend()).printItr();
+    std::cout << "iterator pointing at: " << *p << std::endl;
+    for(MtmMat<int>::nonzero_iterator i = m4.nzbegin(); i != m4.nzend(); ++i){
+        i.printItr();
+        *i = 1;
+    }
+    printMat(m4);
+    p = m4.nzbegin();
+    std::cout << "iterator pointing at: " << *p << std::endl;
+    MtmMat<int>::iterator n = m2.begin();
+    MtmMat<int>::iterator m = m2.begin();
+    //if(!(p == n)) std::cout << "yessssss" << std::endl;
+    ++n;
+    std::cout << (*n) << std::endl;
+    m2[1][0]=2;
+    std::cout << (*n) << std::endl;
+    ++m;
+    std::cout << (n == m) << std::endl;
     
     
     
