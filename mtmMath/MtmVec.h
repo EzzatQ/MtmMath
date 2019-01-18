@@ -99,8 +99,40 @@ namespace MtmMath {
         size_t size(){
             return vect.size();
         }
+        class iterator{
         
-        class nonzero_iterator;
+            typename vector<T>::iterator itr;
+        
+            
+        public:
+            iterator(typename vector<T>::iterator newItr){
+                itr = newItr;
+            }
+            iterator& operator=(const iterator& a){
+                this->itr = a;
+                return *this;
+            }
+            bool operator==(const iterator& a){
+                return this->itr == a.itr;
+            }
+            bool operator!=(const iterator& a){
+                return !((*this) == a);
+            }
+            
+            virtual iterator& operator++(){
+                ++(this->itr);
+                return *this;
+            }
+            
+            T& operator*(){
+                return *(this->itr);
+            }
+           // bool isEnd(){
+             //   if()
+           // }
+            
+        };
+        /*class nonzero_iterator;
         class iterator{
         protected:
             MtmVec<T>* data;
@@ -154,44 +186,48 @@ namespace MtmMath {
                 std::cout << "itr is at (" << pos << ") \n";
             }
             ////////////
-        };
+        };*/
         
         iterator begin(){
-            iterator a(*this);
+            iterator a((this->vect).begin());
             return a;
         }
         
         iterator end(){
-            iterator a(*this, static_cast<int>(this->size()));
+            iterator a((this->vect).end());
             return a;
         }
         
         class nonzero_iterator: public iterator{
         public:
             
-            nonzero_iterator(MtmVec<T>& a, int i = 0): iterator(a){
+            nonzero_iterator(typename vector<T>::iterator a): iterator(a){
                 if(*(*this) == 0) this->operator++();
             }
-            
-            explicit nonzero_iterator(iterator i, MtmVec<T>& a): iterator(a){}
+            nonzero_iterator(const iterator a): iterator(a){}
+            //explicit nonzero_iterator(iterator i): iterator(i){}
             
             nonzero_iterator& operator++() override{
-                do{
-                    iterator::operator++();
-                } while(this->pos != this->endPos && *(*this) == 0);
-                return *this;
+                try{
+                    while(*(*this) == 0){
+                        iterator::operator++();
+                    }
+                    return *this;
+                }
+                catch(...){
+                    return *this;
+                }
             }
-            
         };
         
         nonzero_iterator nzbegin(){
-            nonzero_iterator a(*this);
+            
+            nonzero_iterator a(this->begin());
             return a;
         }
         
         nonzero_iterator nzend(){
-            iterator a(*this, static_cast<int>(this->size()));
-            nonzero_iterator b(a, *this);
+            nonzero_iterator b(this->end());
             return b;
         }
 

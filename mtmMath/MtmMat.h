@@ -124,7 +124,7 @@ namespace MtmMath {
                             this->col++;
                         }
                     }
-                } while(*(*this) == 0);
+                } while(*this !=  (this->data)->nzend() && *(*this) == 0);
                 return *this;
             }
             
