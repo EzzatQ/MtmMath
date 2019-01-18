@@ -26,6 +26,16 @@ void printMat(MtmMat<int> m){
     std::cout << std::endl << std::endl;
 }
 
+void printNormal(MtmMat<int>& v){
+    std::cout<<std::endl;
+    MtmMat<int>::iterator j = v.end();
+    for(MtmMat<int>::iterator i = v.begin(); i != j; ++i){
+        std::cout << *i << "  ";
+    }
+    std::cout<<std::endl;
+}
+
+
 void FuncExample() {
     class maxAbsolute {
         int currMax;
@@ -56,7 +66,10 @@ int main(){
     Dimensions a = Dimensions(2, 1);
     Dimensions b = Dimensions(2,2);
     MtmMat<int> m1(a, 1);
+    //printNormal(m1);
     MtmMat<int> m2(b, 2);
+    m2[0][0] = 0; m2[0][1] = 1; m2[1][0] = 2; m2[1][1] = 3;
+    printNormal(m2);
     MtmMat<int> m3(a, 3);
     MtmVec<int> v1(2, 5);
     //m1 = m2 * m3;
@@ -88,14 +101,15 @@ int main(){
     
     printMat(m4);
     m4[14][3] = 9;
+    m4[5][0] = 2;
     printMat(m4);
     MtmMat<int>::nonzero_iterator p = m4.nzbegin();
     
     
-    (m4.nzend()).printItr();
+    //(m4.nzend()).printItr();
     std::cout << "iterator pointing at: " << *p << std::endl;
     for(MtmMat<int>::nonzero_iterator i = m4.nzbegin(); i != m4.nzend(); ++i){
-        i.printItr();
+        //i.printItr();
         *i = 1;
     }
     printMat(m4);

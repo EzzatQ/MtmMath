@@ -15,15 +15,13 @@ using std::vector;
 namespace MtmMath {
     template <typename T>
     class MtmVec {
+    protected:
    // public:////////////////////////
         vector<T> vect;
         bool column;
 
         
     public:
-        
-        //class end_of_vector{};
-        //class start_of_vector{};
         
         /*
          * Vector constructor, m is the number of elements in it and val is the initial value for the matrix elements
@@ -99,17 +97,23 @@ namespace MtmMath {
         size_t size(){
             return vect.size();
         }
+        
+        
         class iterator{
         
             typename vector<T>::iterator itr;
-        
             
         public:
-            iterator(typename vector<T>::iterator newItr){
-                itr = newItr;
+            
+            iterator(MtmVec<T>& v){
+                typename vector<T>::iterator itr2 = (v.vect).begin();
+                itr = itr2;
             }
+            
+            iterator(){}
+            
             iterator& operator=(const iterator& a){
-                this->itr = a;
+                itr = a.itr;
                 return *this;
             }
             bool operator==(const iterator& a){
@@ -127,85 +131,27 @@ namespace MtmMath {
             T& operator*(){
                 return *(this->itr);
             }
-           // bool isEnd(){
-             //   if()
-           // }
-            
         };
-        /*class nonzero_iterator;
-        class iterator{
-        protected:
-            MtmVec<T>* data;
-            int pos;
-            int endPos;
-        public:
-            
-            friend class nonzero_iterator;
-            
-            iterator(MtmVec<T>& a, int i = 0) : data(NULL){
-                if(i < 0){
-                    throw MtmExceptions::AccessIllegalElement();
-                }
-                data = &a;
-                pos = i;
-                endPos = static_cast<int>(a.size());
-            }
-            
-            iterator(const iterator& i){
-                iterator a(*(i.data), i.pos);
-                *this = a;
-            }
-            
-            iterator& operator=(const iterator& a){
-                pos = a.pos;
-                data = a.data;
-                endPos = a.endPos;
-                return *this;
-            }
-            
-            bool operator==(const iterator& a){
-                if(data != a.data) return false;
-                if(pos == a.pos) return true;
-                return false;
-            }
-            
-            bool operator!=(const iterator& a){
-                return !((*this) == a);
-            }
-            
-            virtual iterator& operator++(){
-                    pos++;
-                return *this;
-            }
-            
-            T& operator*(){
-                return (*(data))[pos];
-            }
-            /////////////
-            void printItr(){
-                std::cout << "itr is at (" << pos << ") \n";
-            }
-            ////////////
-        };*/
         
         iterator begin(){
-            iterator a((this->vect).begin());
+            iterator a(*this);
             return a;
         }
         
         iterator end(){
-            iterator a((this->vect).end());
+            iterator a(*this);
+            for(int i = 0; i < this->size() + 1 ; i++, ++a);
             return a;
         }
         
         class nonzero_iterator: public iterator{
         public:
             
-            nonzero_iterator(typename vector<T>::iterator a): iterator(a){
+            nonzero_iterator(MtmVec<T>& v): iterator(v){
                 if(*(*this) == 0) this->operator++();
             }
-            nonzero_iterator(const iterator a): iterator(a){}
-            //explicit nonzero_iterator(iterator i): iterator(i){}
+            
+            explicit nonzero_iterator(const iterator a): iterator(a){}
             
             nonzero_iterator& operator++() override{
                 try{
@@ -222,14 +168,13 @@ namespace MtmMath {
         };
         
         nonzero_iterator nzbegin(){
-            
-            nonzero_iterator a(this->begin());
+            nonzero_iterator a(*this);
             return a;
         }
         
         nonzero_iterator nzend(){
-            nonzero_iterator b(this->end());
-            return b;
+            nonzero_iterator a(this->end());
+            return a;
         }
 
         /*

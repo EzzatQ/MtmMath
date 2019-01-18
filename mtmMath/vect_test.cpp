@@ -67,7 +67,8 @@ void printNormal(MtmVec<int>& v){
 int main(){
     MtmVec<int> v1(10, 0);
     printVect(v1);
-    v1.resize(Dimensions(15,1), 100);
+    v1.resize(Dimensions(15,1),0);
+    v1[0] = v1[2] = v1[4] = v1[6] = v1[8] = v1[10] = v1[12] = v1[14] = 1;
     printNormal(v1);
     printNonZero(v1);
     v1.transpose();
