@@ -47,7 +47,7 @@ void fillvectfrom(MtmVec<int>& v, int j){
 
 void printNonZero(MtmVec<int>& v){
      std::cout<<std::endl;
-    MtmVec<int>::iterator j = v.nzend();
+    MtmVec<int>::nonzero_iterator j = v.nzend();
     for(MtmVec<int>::nonzero_iterator i = v.nzbegin(); i != j; ++i){
         std::cout << *i << "  ";
     }

@@ -22,8 +22,8 @@ namespace MtmMath {
         
     public:
         
-        class end_of_vector{};
-        class start_of_vector{};
+        //class end_of_vector{};
+        //class start_of_vector{};
         
         /*
          * Vector constructor, m is the number of elements in it and val is the initial value for the matrix elements
@@ -209,6 +209,7 @@ namespace MtmMath {
             
             nonzero_iterator& operator++() override{
                 try{
+                    iterator::operator++();
                     while(*(*this) == 0){
                         iterator::operator++();
                     }

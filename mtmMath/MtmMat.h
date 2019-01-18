@@ -17,19 +17,48 @@ namespace MtmMath {
     template <typename T>
     class MtmMat{
     //public:
-        protected:
+    protected:
         MtmVec<MtmVec<T> > matrix;
         Dimensions dim;
         
     public:
         class iterator{
         protected:
-            MtmMat<T>* data;
-            int row;
-            int col;
+            typename MtmVec<typename MtmVec<T>::iterator>::iterator itr;
+            MtmVec<typename MtmVec<T>::iterator> iterators;
             
         public:
-            iterator(MtmMat<T>& a, int i = 0, int j = 0) : data(NULL){
+            iterator(MtmVec<typename MtmVec<T>::iterator> newIterators){
+                itr = newIterators.begin();
+                iterators = newIterators;
+            }
+            iterator& operator=(const iterator& a){
+                itr = a.itr;
+                iterators = a.iterators;
+                return *this;
+            }
+            bool operator==(const iterator& a){
+                return (itr == a.itr && iterators == a.iterators);
+            }
+            bool operator!=(const iterator& a){
+                return !((*this) == a);
+            }
+            
+            virtual iterator& operator++(){
+                if(itr != iterators.end()) ++itr;
+                else{
+                    itr = iterators.begin();
+                    for(int i = 0; i < iterators.size(); i++){
+                        ++iterators[i];
+                    }
+                }
+                return *this;
+            }
+            
+            T& operator*(){
+                return *(*itr);
+            }
+            /*iterator(MtmMat<T>& a, int i = 0, int j = 0) : data(NULL){
                 if(i < 0 || j < 0){
                     throw MtmExceptions::AccessIllegalElement();
                 }
@@ -91,53 +120,69 @@ namespace MtmMath {
                 std::cout << "itr is at (" << row << "," << col << ") \n";
             }
             ////////////
+             */
         };
         
         iterator begin(){
-            iterator a(*this);
+            MtmVec<typename MtmVec<T>::iterator> newIterators;
+            newIterators = MtmVec<typename MtmVec<T>::iterator>(matrix.size());
+            for(int i = 0; i < matrix.size(); i++){
+                newIterators[i] = matrix[i].begin();
+            }
+            iterator a(newIterators);
             return a;
         }
         
         iterator end(){
-            iterator a(*this, 0, static_cast<int>(dim.getCol()));
+            MtmVec<typename MtmVec<T>::iterator> newIterators;
+            newIterators = MtmVec<typename MtmVec<T>::iterator>(matrix.size());
+            for(int i = 0; i < matrix.size(); i++){
+                newIterators[i] = matrix[i].end();
+            }
+            iterator a(newIterators);
             return a;
         }
         
         class nonzero_iterator: public iterator{
         public:
             
-            nonzero_iterator(MtmMat<T>& a, int i = 0, int j = 0) : iterator(a){
+            nonzero_iterator(MtmVec<typename MtmVec<T>::iterator> newIterators)\
+            : iterator(newIterators){
                 if(*(*this) == 0) this->operator++();
             }
             
-            explicit nonzero_iterator(iterator i): iterator(*(i.getData())){}
-            
-            nonzero_iterator& operator++(){
-                do{
-                    if(this->row < this->data->dim.getRow() - 1){
-                        this->row++;
-                    } else {
-                        this->row = 0;
-                        if(this->col < this->data->dim.getCol() - 1){
-                            this->col++;
-                        } else {
-                            this->col++;
-                        }
-                    }
-                } while(*this !=  (this->data)->nzend() && *(*this) == 0);
-                return *this;
+            explicit nonzero_iterator(iterator i): iterator(i){
+                try{
+                    if(*i == 0) this->operator++();
+                }catch(...){}
             }
             
+            nonzero_iterator& operator++(){
+                try{
+                    iterator::operator++();
+                    while(*(*this) == 0){
+                        iterator::operator++();
+                    }
+                    return *this;
+                }
+                catch(...){
+                    return *this;
+                }
+         }
         };
-        
+        //
         nonzero_iterator nzbegin(){
-            nonzero_iterator a(*this);
+            MtmVec<typename MtmVec<T>::iterator> newIterators;
+            newIterators = MtmVec<typename MtmVec<T>::iterator>(matrix.size());
+            for(int i = 0; i < matrix.size(); i++){
+                newIterators[i] = matrix[i].begin();
+            }
+            nonzero_iterator a(newIterators);
             return a;
         }
-        
+        ///
         nonzero_iterator nzend(){
-            nonzero_iterator a(this->begin());
-            a.setPosition(0, static_cast<int>(this->dim.getCol()));
+            nonzero_iterator a(this->end());
             return a;
         }
         
