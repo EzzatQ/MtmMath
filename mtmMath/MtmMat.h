@@ -48,11 +48,11 @@ namespace MtmMath {
                 return *this;
             }
             
-            bool operator==(iterator& a){
+            bool operator==(iterator a){
                 return (*itr == *a.itr && iterators == a.iterators);
             }
             
-            bool operator!=(iterator& a){
+            bool operator!=(iterator a){
                 return !((*this) == a);
             }
             
@@ -113,11 +113,11 @@ namespace MtmMath {
                     return *this;
                     
                 }
-            bool operator==(nonzero_iterator& a){
+            bool operator==(nonzero_iterator a){
                 return iterator::operator==(a);
             }
             
-            bool operator!=(nonzero_iterator& a){
+            bool operator!=(nonzero_iterator a){
                 return !((*this) == a);
             }
                 

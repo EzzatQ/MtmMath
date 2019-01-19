@@ -116,10 +116,10 @@ namespace MtmMath {
                 itr = a.itr;
                 return *this;
             }
-            bool operator==(const iterator& a){
+            bool operator==(const iterator a){
                 return this->itr == a.itr;
             }
-            bool operator!=(const iterator& a){
+            bool operator!=(const iterator a){
                 return !((*this) == a);
             }
             
