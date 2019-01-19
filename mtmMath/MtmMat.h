@@ -19,14 +19,16 @@ namespace MtmMath {
         Dimensions dim;
         
     public:
+        ///////////////
         class iterator{
         protected:
             typename MtmVec<typename MtmVec<T>::iterator>::iterator itr;
             MtmVec<typename MtmVec<T>::iterator> iterators;
-            
+            int pos;
         public:
             
             iterator(MtmMat<T>& m): iterators(0){
+                pos =0;
                 int size = static_cast<int>(m.dim.getRow());
                 for(int i = 0; i < size; i++){
                     typename MtmVec<T>::iterator it = m[i].begin();
@@ -34,34 +36,36 @@ namespace MtmMath {
                 }
                 itr = iterators.begin();
             }
-            
             /*iterator(MtmVec<typename MtmVec<T>::iterator> newIterators):
             itr(newIterators.begin()), iterators(newIterators) {
                 //itr = newIterators.begin();
                 //iterators = newIterators;
             }*/
             
-            iterator& operator=(const iterator& a){
+            iterator& operator=(iterator& a){
                 itr = a.itr;
                 iterators = a.iterators;
                 return *this;
             }
             
-            bool operator==(const iterator& a){
-                return (itr == a.itr && iterators == a.iterators);
+            bool operator==(iterator& a){
+                return (*itr == *a.itr && iterators == a.iterators);
             }
             
-            bool operator!=(const iterator& a){
+            bool operator!=(iterator& a){
                 return !((*this) == a);
             }
             
             virtual iterator& operator++(){
-                if(itr != iterators.end()) ++itr;
-                else{
+                if(pos == iterators.size()-1) {
                     itr = iterators.begin();
+                    pos = 0;
                     for(int i = 0; i < iterators.size(); i++){
                         ++(iterators[i]);
                     }
+                }else{
+                    pos++;
+                    ++itr;
                 }
                 return *this;
             }
@@ -80,7 +84,10 @@ namespace MtmMath {
             int size = static_cast<int>((this->dim.getRow())*\
                                         (this->dim.getCol()));
             iterator a(*this);
-            for(int i = 0; i < size + 1; i++, ++a);
+            /*for(int i =0; i< (this->matrix).size();i++){
+                a.iterators[i] = (this->matrix)[i].end();
+            }*/
+            for(int i = 0; i < size; i++, ++a);
             return a;
         }
         
@@ -106,6 +113,15 @@ namespace MtmMath {
                     return *this;
                     
                 }
+            bool operator==(nonzero_iterator& a){
+                return iterator::operator==(a);
+            }
+            
+            bool operator!=(nonzero_iterator& a){
+                return !((*this) == a);
+            }
+                
+            
         };
         
         nonzero_iterator nzbegin(){

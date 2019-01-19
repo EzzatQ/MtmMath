@@ -66,12 +66,26 @@ int main(){
     Dimensions a = Dimensions(2, 1);
     Dimensions b = Dimensions(2,2);
     MtmMat<int> m1(a, 1);
-    //printNormal(m1);
+    printNormal(m1);
+    printMat(m1);
     MtmMat<int> m2(b, 2);
+    printNormal(m2);
+    printMat(m2);
     m2[0][0] = 0; m2[0][1] = 1; m2[1][0] = 2; m2[1][1] = 3;
     printNormal(m2);
-    MtmMat<int> m3(a, 3);
+    std::cout<<"testing"<<std::endl;
+    MtmMat<int> m3(Dimensions(4,4), 0);
+    for(int j = 0; j < m3.getDim().getCol(); j++){
+        for(int i = 0; i < m3.getDim().getRow(); i++){
+            m3[i][j] = i + j * (int)m3.getDim().getRow();
+        }
+    }
     MtmVec<int> v1(2, 5);
+
+    printMat(m3);
+    for (MtmMath::MtmMat<int>::iterator go = m3.begin(); go != m3.end(); ++go) {
+       std::cout << *go << std::endl;
+    }
     //m1 = m2 * m3;
     //printMat(m1);
     m1 = 5 * m2;
@@ -86,6 +100,7 @@ int main(){
             m2[i][j] = i + j * (int)m2.getDim().getRow();
         }
     }
+    
     //printMat(m1);
     //m1.reshape(Dimensions(10,3));
     //printMat(m1);
@@ -96,7 +111,7 @@ int main(){
     //printMat(m4);
     //MtmMat<int> m4 = m1 + m3;
     //FuncExample();
-    std::cout << "we are testing this \n";
+    /*std::cout << "we are testing this \n";
     MtmMat<int> m4(Dimensions(15,4), 0);
     
     printMat(m4);
@@ -108,22 +123,24 @@ int main(){
     
     //(m4.nzend()).printItr();
     std::cout << "iterator pointing at: " << *p << std::endl;
-    for(MtmMat<int>::nonzero_iterator i = m4.nzbegin(); i != m4.nzend(); ++i){
+    MtmMat<int>::nonzero_iterator g = m4.nzend();
+    for(MtmMat<int>::nonzero_iterator i = m4.nzbegin(); i != g; ++i){
         //i.printItr();
         *i = 1;
+        printMat(m4);
     }
     printMat(m4);
     p = m4.nzbegin();
-    std::cout << "iterator pointing at: " << *p << std::endl;
-    MtmMat<int>::iterator n = m2.begin();
-    MtmMat<int>::iterator m = m2.begin();
+    std::cout << "iterator pointing at: " << *p << std::endl;*/
+    //MtmMat<int>::iterator n = m2.begin();
+    //MtmMat<int>::iterator m = m2.begin();
     //if(!(p == n)) std::cout << "yessssss" << std::endl;
-    ++n;
-    std::cout << (*n) << std::endl;
-    m2[1][0]=2;
-    std::cout << (*n) << std::endl;
-    ++m;
-    std::cout << (n == m) << std::endl;
+    //++n;
+    //std::cout << (*n) << std::endl;
+    //m2[1][0]=2;
+    //std::cout << (*n) << std::endl;
+    //++m;
+    //std::cout << (n == m) << std::endl;
     
     
     

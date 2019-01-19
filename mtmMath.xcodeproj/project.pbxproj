@@ -7,15 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1EAEF87321F33A63004F4BF0 /* complex_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52CE2FC121ED406F00197B0A /* complex_test.cpp */; };
 		525A163021E3713A00C4FCC7 /* MtmVec.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 525A162F21E3713A00C4FCC7 /* MtmVec.cpp */; };
-		52848E5021F22F540068D1DD /* MtmMat.h in Sources */ = {isa = PBXBuildFile; fileRef = 5299B97321DA27E300EC0FD5 /* MtmMat.h */; };
 		52848E5121F22F540068D1DD /* MtmMat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 525A162D21E3712800C4FCC7 /* MtmMat.cpp */; };
-		52848E5221F22F710068D1DD /* matrix_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52ED1F5E21ECBE070053B0F8 /* matrix_test.cpp */; };
-		52ED1F6221ECBE7E0053B0F8 /* Auxilaries.h in Sources */ = {isa = PBXBuildFile; fileRef = 5299B97521DA27E300EC0FD5 /* Auxilaries.h */; };
-		52ED1F6321ECBE7E0053B0F8 /* Complex.h in Sources */ = {isa = PBXBuildFile; fileRef = 5299B96F21DA27E200EC0FD5 /* Complex.h */; };
 		52ED1F6421ECBE7E0053B0F8 /* Complex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 525A162A21E3710300C4FCC7 /* Complex.cpp */; };
-		52ED1F6521ECBE7E0053B0F8 /* MtmExceptions.h in Sources */ = {isa = PBXBuildFile; fileRef = 5299B97421DA27E300EC0FD5 /* MtmExceptions.h */; };
-		52ED1F6921ECBE7E0053B0F8 /* MtmVec.h in Sources */ = {isa = PBXBuildFile; fileRef = 5299B97621DA27E300EC0FD5 /* MtmVec.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -158,14 +153,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				52848E5221F22F710068D1DD /* matrix_test.cpp in Sources */,
-				52848E5021F22F540068D1DD /* MtmMat.h in Sources */,
+				1EAEF87321F33A63004F4BF0 /* complex_test.cpp in Sources */,
 				52848E5121F22F540068D1DD /* MtmMat.cpp in Sources */,
-				52ED1F6221ECBE7E0053B0F8 /* Auxilaries.h in Sources */,
-				52ED1F6321ECBE7E0053B0F8 /* Complex.h in Sources */,
 				52ED1F6421ECBE7E0053B0F8 /* Complex.cpp in Sources */,
-				52ED1F6521ECBE7E0053B0F8 /* MtmExceptions.h in Sources */,
-				52ED1F6921ECBE7E0053B0F8 /* MtmVec.h in Sources */,
 				525A163021E3713A00C4FCC7 /* MtmVec.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -288,7 +278,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = JJBXCYA32Y;
+				DEVELOPMENT_TEAM = N6W2FVLFTJ;
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -298,7 +288,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = JJBXCYA32Y;
+				DEVELOPMENT_TEAM = N6W2FVLFTJ;
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
