@@ -19,42 +19,24 @@ namespace MtmMath {
          */
         MtmMatSq (size_t m, const T& val=T()): \
                                         MtmMat<T>(Dimensions(m,m),val) {};
-        ~MtmMatSq(){}; //
-        MtmMatSq(const MtmMat<T>& m):MtmMat<T>(m){//what happens according to what?
+        
+        MtmMatSq(const MtmMat<T>& m): MtmMat<T>(m){
             if(m.dim.getCol()!=m.dim.getRow())
-                throw MtmExceptions::IllegalInitialization();
+                throw MtmExceptions::DimensionMismatch();
             };
-        MtmMatSq(const MtmMatSq& m):MtmMat<T>(m){};
-        MtmMatSq& operator=(const MtmMatSq& mat);
         
-        //might need changing
-        /*MtmMatSq& operator+=(const MtmMatSq& mat);
-        MtmMatSq& operator+=(const T& s);
-        MtmMatSq& operator-=(const MtmMatSq& mat);
-        MtmMatSq& operator-=(const T& s);
-        MtmMatSq& operator*=(const MtmMatSq& mat);
-        MtmMatSq& operator*=(const T& s);
-        MtmMatSq& operator*=(const MtmVec<T>& vec);*/
-        /*
-         * Function that get function object f and uses it's () operator on each element in the matrix columns.
-         * It outputs a vector in the size of the matrix columns where each element is the final output
-         * by the function object's * operator
-         */
+        MtmMatSq(const MtmMatSq& m): MtmMatSq<T>(m){};
+
+        virtual void resize(Dimensions dim, const T& val=T()){
+            if(dim.getRow() != dim.getCol()){
+                throw MtmExeptions::DimensionMismatch();
+            }
+            MtmMat<T>::resize(dim, cal);
+        }
         
-        
-        //////// what to do
-        template <typename Func>
-        MtmVec<T> matFunc(Func& f) const;
-        
-        /*
-         * resizes a matrix to dimension dim, new elements gets the value val.
-         */
-        virtual void resize(Dimensions dim, const T& val=T());
-        
-        /*
-         * Performs transpose operation on matrix
-         */
-        virtual void transpose();
+        void reshape(Dimensions dim){
+            throw MtmExceptoins::ChangeMatFail();
+        }
     };
 
 }
