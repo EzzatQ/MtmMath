@@ -17,7 +17,7 @@ namespace MtmMath {
          * Rectangular Matrix constructor, m is the number of rows and columns in the matrix
          * and val is the initial value for the matrix elements
          */
-        MtmMatSq (size_t m, const T& val=T()): \
+        MtmMatSq(size_t m, const T& val=T()): \
         MtmMat<T>(Dimensions(m,m),val) {};
         
         MtmMatSq(const MtmMat<T>& m): MtmMat<T>(m){
@@ -25,8 +25,14 @@ namespace MtmMath {
                 throw MtmExceptions::DimensionMismatch();
         };
         
+        ~MtmMatSq(){}
+        
         MtmMatSq(const MtmMatSq& m): MtmMatSq<T>(m){};
         
+        MtmMatSq& operator=(const MtmMat<T>& m){
+            MtmMat<T>::operator=(m);
+        }
+
         virtual void resize(Dimensions dim, const T& val=T()){
             if(dim.getRow() != dim.getCol()){
                 throw MtmExceptions::DimensionMismatch();

@@ -19,6 +19,69 @@ namespace MtmMath {
         Dimensions dim;
         
     public:
+        /*
+         * Matrix constructor, dim_t is the dimension of the matrix and val is the initial value for the matrix elements
+         */
+        MtmMat(Dimensions dim_t = Dimensions(1,1), const T& val=T());
+        
+        explicit MtmMat(const MtmVec<T>& v);
+        
+        virtual ~MtmMat();
+        
+        MtmMat(const MtmMat& m);
+        
+        MtmMat& operator=(const MtmMat& mat);
+        
+        Dimensions getDim() const{
+            return dim;
+        }
+        
+        //might need changing
+        MtmMat& operator-();
+        MtmMat& operator+=(const MtmMat& m);
+        MtmMat& operator+=(const T& s);
+        MtmMat& operator-=(const MtmMat& m);
+        MtmMat& operator-=(const T& s);
+        MtmMat& operator*=(const MtmMat& m);
+        MtmMat& operator*=(const T& s);
+        MtmMat& operator*=(const MtmVec<T>& v);
+        /*
+         * Function that get function object f and uses it's () operator on each element in the matrix columns.
+         * It outputs a vector in the size of the matrix columns where each element is the final output
+         * by the function object's * operator
+         */
+        template <typename Func>
+        MtmVec<T> matFunc(Func& f) const;
+
+        /*
+         * resizes a matrix to dimension dim, new elements gets the value val.
+         */
+        virtual void resize(Dimensions dim, const T& val=T());
+
+        /*
+         * reshapes matrix so linear elements value are the same without changing num of elements.
+         */
+        virtual void reshape(Dimensions newDim);
+
+        /*
+         * Performs transpose operation on matrix
+         */
+        virtual void transpose();
+        
+        MtmVec<T>& operator[](const int i){
+            if(i >= dim.getRow()){
+                throw MtmExceptions::AccessIllegalElement();
+            }
+            return matrix[i];
+        }
+        
+        const MtmVec<T>& operator[](const int i) const{
+            if(i >= dim.getCol()){
+                throw MtmExceptions::AccessIllegalElement();
+            }
+            return matrix[i];
+        }
+        
         class iterator{
         protected:
             typename MtmVec<typename MtmVec<T>::iterator>::iterator itr;
@@ -103,13 +166,13 @@ namespace MtmMath {
                     while(*(*this) == 0){
                         iterator::operator++();
                     }
-                        
-                    } catch(...){
-                        return *this;
-                    }
-                    return *this;
                     
+                } catch(...){
+                    return *this;
                 }
+                return *this;
+                
+            }
             bool operator==(nonzero_iterator a){
                 return iterator::operator==(a);
             }
@@ -117,8 +180,6 @@ namespace MtmMath {
             bool operator!=(nonzero_iterator a){
                 return !((*this) == a);
             }
-                
-            
         };
         
         nonzero_iterator nzbegin(){
@@ -131,68 +192,6 @@ namespace MtmMath {
             return a;
         }
         
-        /*
-         * Matrix constructor, dim_t is the dimension of the matrix and val is the initial value for the matrix elements
-         */
-        MtmMat(Dimensions dim_t = Dimensions(1,1), const T& val=T());
-        
-        explicit MtmMat(const MtmVec<T>& v);
-        
-        virtual ~MtmMat();
-        
-        MtmMat(const MtmMat& m);
-        
-        MtmMat& operator=(const MtmMat& mat);
-        
-        Dimensions getDim() const{
-            return dim;
-        }
-        
-        //might need changing
-        MtmMat& operator-();
-        MtmMat& operator+=(const MtmMat& m);
-        MtmMat& operator+=(const T& s);
-        MtmMat& operator-=(const MtmMat& m);
-        MtmMat& operator-=(const T& s);
-        MtmMat& operator*=(const MtmMat& m);
-        MtmMat& operator*=(const T& s);
-        MtmMat& operator*=(const MtmVec<T>& v);
-        /*
-         * Function that get function object f and uses it's () operator on each element in the matrix columns.
-         * It outputs a vector in the size of the matrix columns where each element is the final output
-         * by the function object's * operator
-         */
-        template <typename Func>
-        MtmVec<T> matFunc(Func& f) const;
-
-        /*
-         * resizes a matrix to dimension dim, new elements gets the value val.
-         */
-        virtual void resize(Dimensions dim, const T& val=T());
-
-        /*
-         * reshapes matrix so linear elements value are the same without changing num of elements.
-         */
-        virtual void reshape(Dimensions newDim);
-
-        /*
-         * Performs transpose operation on matrix
-         */
-        virtual void transpose();
-        
-        MtmVec<T>& operator[](const int i){
-            if(i >= dim.getRow()){
-                throw MtmExceptions::AccessIllegalElement();
-            }
-            return matrix[i];
-        }
-        
-        const MtmVec<T>& operator[](const int i) const{
-            if(i >= dim.getCol()){
-                throw MtmExceptions::AccessIllegalElement();
-            }
-            return matrix[i];
-        }
     };
     
     //the constructor
