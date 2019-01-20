@@ -21,7 +21,7 @@ namespace MtmMath {
         MtmMat<T>(Dimensions(m,m),val) {};
         
         MtmMatSq(const MtmMat<T>& m): MtmMat<T>(m){
-            if(m.dim.getCol()!=m.dim.getRow())
+            if(m.getDim().getCol()!=m.getDim().getRow())
                 throw MtmExceptions::DimensionMismatch();
         };
         
@@ -29,13 +29,13 @@ namespace MtmMath {
         
         virtual void resize(Dimensions dim, const T& val=T()){
             if(dim.getRow() != dim.getCol()){
-                throw MtmExeptions::DimensionMismatch();
+                throw MtmExceptions::DimensionMismatch();
             }
-            MtmMat<T>::resize(dim, cal);
+            MtmMat<T>::resize(dim, val);
         }
         
         void reshape(Dimensions dim){
-            throw MtmExceptoins::ChangeMatFail();
+            throw MtmExceptions::ChangeMatFail();
         }
     };
     

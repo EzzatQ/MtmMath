@@ -2,6 +2,7 @@
 #include <iostream>
 #include "MtmVec.h"
 #include "MtmMat.h"
+#include "MtmMatSq.h"
 #include "Auxilaries.h"
 #include <assert.h>
 
@@ -35,6 +36,16 @@ void printNormal(MtmMat<int>& v){
     std::cout<<std::endl;
 }
 
+void printNZ(MtmMat<int>& v){
+    std::cout<<std::endl;
+    //MtmMat<int>::nonzero_iterator j = v.nzend();
+    for(MtmMat<int>::nonzero_iterator i = v.nzbegin(); i != v.nzend(); ++i){
+        std::cout << *i << "  ";
+    }
+    std::cout<<std::endl;
+}
+
+
 
 void FuncExample() {
     class maxAbsolute {
@@ -65,8 +76,10 @@ void FuncExample() {
 int main(){
     Dimensions a = Dimensions(2, 1);
     Dimensions b = Dimensions(2,2);
-    MtmMat<int> m1(a, 1);
+    MtmMatSq<int> m1(4, 1);
+    m1[0][0] = m1[3][0] = m1[2][3] = 0;
     printNormal(m1);
+    //printNZ(m1);
     printMat(m1);
     MtmMat<int> m2(b, 2);
     printNormal(m2);

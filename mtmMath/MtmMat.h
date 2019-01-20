@@ -19,7 +19,6 @@ namespace MtmMath {
         Dimensions dim;
         
     public:
-        ///////////////
         class iterator{
         protected:
             typename MtmVec<typename MtmVec<T>::iterator>::iterator itr;
@@ -36,15 +35,16 @@ namespace MtmMath {
                 }
                 itr = iterators.begin();
             }
-            /*iterator(MtmVec<typename MtmVec<T>::iterator> newIterators):
-            itr(newIterators.begin()), iterators(newIterators) {
-                //itr = newIterators.begin();
-                //iterators = newIterators;
-            }*/
             
-            iterator& operator=(iterator& a){
-                itr = a.itr;
-                iterators = a.iterators;
+            iterator(iterator& i){
+                if(*this == i) return;
+                itr = i.itr;
+                iterators = i.iterators;
+            }
+            
+            iterator& operator=(iterator& i){
+                itr = i.itr;
+                iterators = i.iterators;
                 return *this;
             }
             
@@ -84,9 +84,6 @@ namespace MtmMath {
             int size = static_cast<int>((this->dim.getRow())*\
                                         (this->dim.getCol()));
             iterator a(*this);
-            /*for(int i =0; i< (this->matrix).size();i++){
-                a.iterators[i] = (this->matrix)[i].end();
-            }*/
             for(int i = 0; i < size; i++, ++a);
             return a;
         }
@@ -147,7 +144,7 @@ namespace MtmMath {
         
         MtmMat& operator=(const MtmMat& mat);
         
-        Dimensions getDim(){
+        Dimensions getDim() const{
             return dim;
         }
         
@@ -196,8 +193,6 @@ namespace MtmMath {
             }
             return matrix[i];
         }
-       
-
     };
     
     //the constructor

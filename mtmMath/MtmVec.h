@@ -140,7 +140,9 @@ namespace MtmMath {
         
         iterator end(){
             iterator a(*this);
-            for(int i = 0; i < this->size() + 1 ; i++, ++a);
+            for(int i = 0; i < this->size() + 1; i++, ++a){
+                
+            }
             return a;
         }
         

@@ -66,9 +66,13 @@ void printNormal(MtmVec<int>& v){
 
 int main(){
     MtmVec<int> v1(10, 0);
+    //std::cout << v1[15] << std::endl;
     printVect(v1);
     v1.resize(Dimensions(15,1),0);
     v1[0] = v1[2] = v1[4] = v1[6] = v1[8] = v1[10] = v1[12] = v1[14] = 1;
+    for(int i = 0; i < v1.size(); i++){
+        v1[i] = i;
+    }
     printNormal(v1);
     printNonZero(v1);
     v1.transpose();
