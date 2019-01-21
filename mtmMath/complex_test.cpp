@@ -18,13 +18,17 @@ int main(){
     printComplex(a2);
     a2 = b + 2;
     printComplex(a2);
-    /*Complex c(b + a);
+    bool t = a1 != b;
+    std::cout << t<< std::endl;
+    Complex c(b + a1);
     printComplex(c);
-    Complex d(c * a);
+    Complex d(c * a1);
     printComplex(d);
     Complex e(d - c);
     printComplex(e);
-    Complex f(a / a);
-    printComplex(f);*/
+    Complex f(a1 / a1);
+    printComplex(f);
+    Complex g = -f;
+    printComplex(g);
     
 }

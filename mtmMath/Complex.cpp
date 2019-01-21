@@ -13,7 +13,7 @@ Complex& Complex::operator+=(const Complex& c){
     return *this;
 }
 
-Complex operator+(const Complex& a, const Complex& b){
+Complex MtmMath::operator+(const Complex& a, const Complex& b){
     Complex c = a;
     return c += b;
 }
@@ -22,7 +22,7 @@ Complex& Complex::operator-=(const Complex& c){
     return Complex::operator+=(-c);
 }
 
-Complex operator-(const Complex& a, const Complex& b){
+Complex MtmMath::operator-(const Complex& a, const Complex& b){
     Complex c = a;
     return c -= b;
 }
@@ -37,7 +37,7 @@ Complex& Complex::operator*=(const Complex& c){
     return *this;
 }
 
-Complex operator*(const Complex& a, const Complex& b){
+Complex MtmMath::operator*(const Complex& a, const Complex& b){
     Complex c = a;
     return c *= b;
 }
@@ -51,7 +51,7 @@ Complex& Complex::operator/=(const Complex& c){
     return *this;
 }
 
-Complex operator/(const Complex& a, const Complex& b){
+Complex MtmMath::operator/(const Complex& a, const Complex& b){
     Complex c = a;
     return c /= b;
 }

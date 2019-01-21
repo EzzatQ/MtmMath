@@ -138,12 +138,12 @@ namespace MtmMath {
             }
         };
         
-        iterator begin(){
+        iterator& begin(){
             iterator a(*this);
             return a;
         }
         
-        iterator end(){
+        iterator& end(){
             int size = static_cast<int>((this->dim.getRow())*\
                                         (this->dim.getCol()));
             iterator a(*this);
@@ -182,12 +182,12 @@ namespace MtmMath {
             }
         };
         
-        nonzero_iterator nzbegin(){
+        nonzero_iterator& nzbegin(){
             nonzero_iterator a(*this);
             return a;
         }
         
-        nonzero_iterator nzend(){
+        nonzero_iterator& nzend(){
             nonzero_iterator a(this->end());
             return a;
         }

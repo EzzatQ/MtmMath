@@ -15,8 +15,7 @@ namespace MtmMath {
     template <typename T>
     class MtmMatTriag : public MtmMatSq<T>{
         bool isUpper;
-        //bool** legalAccess;
-        MtmMat<T> Access; // m * m+1
+        class 
     public:
 
         /*

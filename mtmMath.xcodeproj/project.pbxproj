@@ -8,9 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		525A163021E3713A00C4FCC7 /* MtmVec.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 525A162F21E3713A00C4FCC7 /* MtmVec.cpp */; };
-		527945C321F4AE8B00D76290 /* matrix_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52ED1F5E21ECBE070053B0F8 /* matrix_test.cpp */; };
 		527945C621F4AF6000D76290 /* MtmMat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 525A162D21E3712800C4FCC7 /* MtmMat.cpp */; };
 		527945C721F4AF6000D76290 /* MtmMatSq.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 525A163121E371B100C4FCC7 /* MtmMatSq.cpp */; };
+		527945C921F5F88100D76290 /* matrix_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52ED1F5E21ECBE070053B0F8 /* matrix_test.cpp */; };
 		52ED1F6421ECBE7E0053B0F8 /* Complex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 525A162A21E3710300C4FCC7 /* Complex.cpp */; };
 /* End PBXBuildFile section */
 
@@ -154,9 +154,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				527945C921F5F88100D76290 /* matrix_test.cpp in Sources */,
 				527945C621F4AF6000D76290 /* MtmMat.cpp in Sources */,
 				527945C721F4AF6000D76290 /* MtmMatSq.cpp in Sources */,
-				527945C321F4AE8B00D76290 /* matrix_test.cpp in Sources */,
 				52ED1F6421ECBE7E0053B0F8 /* Complex.cpp in Sources */,
 				525A163021E3713A00C4FCC7 /* MtmVec.cpp in Sources */,
 			);

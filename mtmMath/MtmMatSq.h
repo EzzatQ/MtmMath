@@ -31,6 +31,7 @@ namespace MtmMath {
         
         MtmMatSq& operator=(const MtmMat<T>& m){
             MtmMat<T>::operator=(m);
+            return *this;
         }
 
         virtual void resize(Dimensions dim, const T& val=T()){
