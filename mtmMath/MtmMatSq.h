@@ -20,14 +20,14 @@ namespace MtmMath {
         MtmMatSq(size_t m, const T& val=T()): \
         MtmMat<T>(Dimensions(m,m),val) {};
         
+        ~MtmMatSq(){}
+        
+        MtmMatSq(const MtmMatSq& m): matrix(m.matrix){};
+        
         MtmMatSq(const MtmMat<T>& m): MtmMat<T>(m){
             if(m.dim.getCol()!= m.dim.getRow())
                 throw MtmExceptions::DimensionMismatch();
         };
-        
-        ~MtmMatSq(){}
-        
-        MtmMatSq(const MtmMatSq& m): MtmMatSq<T>(m){};
         
         MtmMatSq& operator=(const MtmMat<T>& m){
             MtmMat<T>::operator=(m);
@@ -42,7 +42,9 @@ namespace MtmMath {
         }
         
         void reshape(Dimensions dim){
-            throw MtmExceptions::ChangeMatFail();
+            if(dim != this->dim){
+                throw MtmExceptions::ChangeMatFail();
+            }
         }
     };
     

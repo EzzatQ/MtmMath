@@ -12,7 +12,7 @@ namespace MtmMath {
     public:
         Dimensions(size_t row_t = 0, size_t col_t = 0) : row(row_t), col(col_t) {
             if(row_t <= 0 || col_t <= 0){
-                //throw MtmExcetions::IllegalInitialization();
+                //throw MtmExcpetions::IllegalInitialization();
             }
         }
         

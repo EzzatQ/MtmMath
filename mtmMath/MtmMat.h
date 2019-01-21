@@ -11,7 +11,7 @@
 using std::size_t;
 
 namespace MtmMath {
-
+    
     template <typename T>
     class MtmMat{
     protected:
@@ -38,6 +38,9 @@ namespace MtmMath {
         
         //might need changing
         MtmMat& operator-();
+        bool operator==(const MtmMat& m){
+            return (matrix == m.matrix && dim == m.dim);
+        }
         MtmMat& operator+=(const MtmMat& m);
         MtmMat& operator+=(const T& s);
         MtmMat& operator-=(const MtmMat& m);
@@ -52,17 +55,17 @@ namespace MtmMath {
          */
         template <typename Func>
         MtmVec<T> matFunc(Func& f) const;
-
+        
         /*
          * resizes a matrix to dimension dim, new elements gets the value val.
          */
         virtual void resize(Dimensions dim, const T& val=T());
-
+        
         /*
          * reshapes matrix so linear elements value are the same without changing num of elements.
          */
         virtual void reshape(Dimensions newDim);
-
+        
         /*
          * Performs transpose operation on matrix
          */
@@ -84,66 +87,58 @@ namespace MtmMath {
         
         class iterator{
         protected:
-            typename MtmVec<typename MtmVec<T>::iterator>::iterator itr;
-            MtmVec<typename MtmVec<T>::iterator> iterators;
-            int pos;
+            MtmMat<T>& matrix;
+            int i;
+            int j;
+
         public:
             
-            iterator(MtmMat<T>& m): iterators(0){
-                pos =0;
-                int size = static_cast<int>(m.dim.getRow());
-                for(int i = 0; i < size; i++){
-                    typename MtmVec<T>::iterator it = m[i].begin();
-                    iterators.push_back(it);
-                }
-                itr = iterators.begin();
+            iterator(MtmMat<T>& m): matrix(m), i(0), j(0){}
+            
+            iterator(const iterator& it): matrix(it.matrix){
+                matrix = it.matrix;
+                i = it.i;
+                j = it.j;
             }
             
-            iterator(iterator& i){
-                if(*this == i) return;
-                itr = i.itr;
-                iterators = i.iterators;
-            }
-            
-            iterator& operator=(iterator& i){
-                itr = i.itr;
-                iterators = i.iterators;
+            iterator& operator=(const iterator& i){
+                *this = iterator(i);
                 return *this;
             }
             
-            bool operator==(iterator a){
-                return (*itr == *a.itr && iterators == a.iterators);
+            bool operator==(const iterator a) const{
+                return (matrix == a.matrix && i == a.i && j == a.j);
             }
             
-            bool operator!=(iterator a){
+            bool operator!=(const iterator a) const{
                 return !((*this) == a);
             }
             
             virtual iterator& operator++(){
-                if(pos == iterators.size()-1) {
-                    itr = iterators.begin();
-                    pos = 0;
-                    for(int i = 0; i < iterators.size(); i++){
-                        ++(iterators[i]);
-                    }
+                if(i == matrix.getDim().getRow()-1){
+                    i = 0;
+                    if(j <= matrix.getDim().getCol()-1)
+                        j++;
                 }else{
-                    pos++;
-                    ++itr;
+                    if(!(i == 0 && j== matrix.getDim().getCol()))
+                        i++;
                 }
                 return *this;
             }
             
             T& operator*(){
-                return *(*itr);
+                if(i < matrix.getDim().getRow() && j < matrix.getDim().getCol())
+                    return matrix[i][j];
+                throw MtmExceptions::AccessIllegalElement();
             }
         };
         
-        iterator& begin(){
+        iterator begin(){
             iterator a(*this);
             return a;
         }
         
-        iterator& end(){
+        iterator end(){
             int size = static_cast<int>((this->dim.getRow())*\
                                         (this->dim.getCol()));
             iterator a(*this);
@@ -153,42 +148,41 @@ namespace MtmMath {
         
         class nonzero_iterator: public iterator{
         public:
+            explicit nonzero_iterator(iterator i): iterator(i){}
             
-            nonzero_iterator(MtmMat<T>& m): iterator(m){
+            nonzero_iterator(MtmMat<T>& m = MtmMat<T>()): iterator(m){
                 if(*(*this) == 0) this->operator++();
             }
-            
-            explicit nonzero_iterator(iterator i): iterator(i){}
             
             nonzero_iterator& operator++(){
                 iterator::operator++();
                 try{
                     while(*(*this) == 0){
                         iterator::operator++();
+                        
                     }
-                    
-                } catch(...){
+                }catch(MtmExceptions::AccessIllegalElement& e){
                     return *this;
                 }
                 return *this;
                 
             }
-            bool operator==(nonzero_iterator a){
+            bool operator==(const nonzero_iterator a) const{
                 return iterator::operator==(a);
             }
             
-            bool operator!=(nonzero_iterator a){
+            bool operator!=(const nonzero_iterator a) const{
                 return !((*this) == a);
             }
         };
         
-        nonzero_iterator& nzbegin(){
+        nonzero_iterator nzbegin(){
             nonzero_iterator a(*this);
             return a;
         }
         
-        nonzero_iterator& nzend(){
-            nonzero_iterator a(this->end());
+        nonzero_iterator nzend(){
+            nonzero_iterator a(end());
             return a;
         }
         
@@ -212,12 +206,15 @@ namespace MtmMath {
             for(int i = 0; i < size; i++){
                 newMat[i][0] = v[i];
             }
+            *this = newMat;
         } else{
             MtmMat<T> newMat(Dimensions(1, size));
             for(int i = 0; i < size; i++){
                 newMat[0][i] = v[i];
             }
+            *this = newMat;
         }
+        
     }
     
     
@@ -269,11 +266,8 @@ namespace MtmMath {
     
     template <class T>
     void MtmMat<T>::resize(Dimensions newDim, const T& val){
-         if(newDim == dim) return;
+        if(newDim == dim) return;
         size_t newRow = newDim.getRow(), newCol = newDim.getCol();
-        if(!newRow || !newCol){
-            throw MtmExceptions::DimensionMismatch();
-        }
         size_t row = dim.getRow(), col = dim.getCol();
         bool isCol = matrix.is_column();
         size_t Old = isCol ? row : col;
@@ -292,9 +286,9 @@ namespace MtmMath {
         dim = newDim;
         for(int i = 0; i < New; i++){
             if(matrix[0].is_column()){
-            matrix[i].resize(Dimensions(newRow,1), val);
+                matrix[i].resize(Dimensions(newRow,1), val);
             } else matrix[i].resize(Dimensions(1,newCol), val);
-        } 
+        }
     }
     
     template <class T>
@@ -326,10 +320,9 @@ namespace MtmMath {
         size_t row = dim.getRow(), col = dim.getCol();
         MtmMat<T> temp(*this);
         *this = MtmMat<T>(Dimensions(col,row));
-        dim.transpose();
         for(int i = 0; i < col; i++){
             for(int j = 0; j < row; j++){
-                matrix[j][i] = temp[i][j];
+                matrix[i][j] = temp[j][i];
             }
         }
     }
@@ -385,6 +378,18 @@ namespace MtmMath {
     }
     
     template <class T>
+    MtmMat<T> operator+(const MtmMat<T>& m, const MtmVec<T>& v){
+        MtmMat<T> temp(v);
+        return m + temp;
+    }
+    
+    template <class T>
+    MtmMat<T> operator+(const MtmVec<T>& v, const MtmMat<T>& m){
+        MtmMat<T> temp(v);
+        return m + temp;
+    }
+    
+    template <class T>
     MtmMat<T>& MtmMat<T>::operator-=(const MtmMat<T>& m){
         MtmMat<T> a(m);
         return (*this) += -a;
@@ -409,6 +414,18 @@ namespace MtmMath {
         MtmMat<T> c(a);
         c += -s;
         return c;
+    }
+    
+    template <class T>
+    MtmMat<T> operator-(const MtmMat<T>& m, const MtmVec<T>& v){
+        MtmMat<T> temp(v);
+        return m + (-temp);
+    }
+    
+    template <class T>
+    MtmMat<T>& operator-(const MtmVec<T>& v, const MtmMat<T>& m){
+        MtmMat<T> temp(v);
+        return temp + (-m);
     }
     
     template <class T>

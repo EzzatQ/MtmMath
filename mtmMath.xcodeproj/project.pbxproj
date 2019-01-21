@@ -10,7 +10,7 @@
 		525A163021E3713A00C4FCC7 /* MtmVec.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 525A162F21E3713A00C4FCC7 /* MtmVec.cpp */; };
 		527945C621F4AF6000D76290 /* MtmMat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 525A162D21E3712800C4FCC7 /* MtmMat.cpp */; };
 		527945C721F4AF6000D76290 /* MtmMatSq.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 525A163121E371B100C4FCC7 /* MtmMatSq.cpp */; };
-		527945CB21F600E600D76290 /* triag_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 527945CA21F600E600D76290 /* triag_test.cpp */; };
+		527945CE21F659F400D76290 /* triag_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 527945CA21F600E600D76290 /* triag_test.cpp */; };
 		52ED1F6421ECBE7E0053B0F8 /* Complex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 525A162A21E3710300C4FCC7 /* Complex.cpp */; };
 /* End PBXBuildFile section */
 
@@ -156,7 +156,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				527945CB21F600E600D76290 /* triag_test.cpp in Sources */,
+				527945CE21F659F400D76290 /* triag_test.cpp in Sources */,
 				527945C621F4AF6000D76290 /* MtmMat.cpp in Sources */,
 				527945C721F4AF6000D76290 /* MtmMatSq.cpp in Sources */,
 				52ED1F6421ECBE7E0053B0F8 /* Complex.cpp in Sources */,

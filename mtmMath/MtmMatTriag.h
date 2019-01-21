@@ -16,10 +16,11 @@ namespace MtmMath {
     class MtmMatTriag : public MtmMatSq<T>{
         bool isUpper;
 
-        class safeVec {
+        class safeVec{
             MtmVec<T>& rowVect;
             int rowNum;
             bool isUpper;
+            
         public:
             
             //template <class S>
@@ -41,6 +42,16 @@ namespace MtmMath {
             }
             
             T& operator[](int j){
+                if(j >= rowVect.size()) {
+                    throw MtmExceptions::AccessIllegalElement();
+                }
+                if((isUpper && j < rowNum) || (!isUpper && j > rowNum)){
+                    throw MtmExceptions::AccessIllegalElement();
+                }
+                return rowVect[j];
+            }
+            
+            const T& operator[](int j) const{
                 if(j >= rowVect.size()) {
                     throw MtmExceptions::AccessIllegalElement();
                 }
@@ -73,16 +84,31 @@ namespace MtmMath {
         
         ~MtmMatTriag();
         
-        MtmMatTriag(const MtmMatTriag<T>& m): MtmMatSq<T>(m, 0){
+        MtmMatTriag(const MtmMatTriag<T>& m): MtmMatSq<T>(m){
             *this = m;
         }
         
-        MtmMatTriag(const MtmMatSq<T>& m): MtmMatSq<T>(m, 0){
-            
+        MtmMatTriag(const MtmMatSq<T>& m): MtmMatSq<T>(m){
+            bool Upper = true, Lower = true;
+            for(int i = 0; i < m.dim.getRow(); i++){
+                for(int j = 0; j < m.dim.getCol(); i++){
+                    if(i < j && m[i][j] != 0) Upper = false;
+                    if(i > j && m[i][j] != 0) Lower = false;
+                }
+            }
+            if(!Upper && !Lower){
+                throw MtmExceptions::IllegalInitialization();
+            }
+            isUpper = Upper ? true : false;
+            *this = MtmMatTriag<T>(m);
         }
         
-        MtmMatTriag(const MtmMat<T>& m): MtmMatSq<T>(m, 0){
-            
+        MtmMatTriag(const MtmMat<T>& m): MtmMatSq<T>(m){
+            if(m.dim.getRow() != m.dim.getCol()){
+                throw MtmExceptions::IllegalInitialization();
+            }
+            MtmMatSq<T> temp(m);
+            *this = MtmMatTriag<T>(temp);
         }
         
         
@@ -101,9 +127,38 @@ namespace MtmMath {
             return v;
         }
         
-        //MtmMatTriag<T>(const MtmMat<T>& m);
+        const safeVec& operator[](int i) const{
+            if(i >= this->dim.getRow()){
+                throw MtmExceptions::AccessIllegalElement();
+            }
+            safeVec v(this->matrix[i], i, isUpper);
+            return v;
+        }
         
-        //MtmMatTriag<T>(const MtmMatSq<T>& m);//is this neccessery? sq is mat
+        void transpose(){
+            MtmMat<T>::transpose();
+            isUpper = !isUpper;
+        }
+        
+        void resize(Dimensions dim, const T& val=T()){
+            MtmMatSq<T>::resize(dim, val);
+            if(dim.getRow() < this->dim.getRow()) return;
+            if(isUpper){
+                for(int i = static_cast<int>(this->dim.getRow());\
+                    i < dim.getRow(); i++){
+                    for(int j = 0; j < i; j++){
+                        this->matrix[i][j] = 0;
+                    }
+                }
+            } else {
+                for(int i = 0; i < dim.getRow(); i++){
+                    for(int j = i + 1; j < dim.getCol(); j++){
+                        this->matrix[i][j] = 0;
+                    }
+                }
+            }
+        }
+        
     };
 
 }

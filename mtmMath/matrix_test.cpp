@@ -38,8 +38,8 @@ void printNormal(MtmMat<int>& v){
 
 void printNZ(MtmMat<int>& v){
     std::cout<<std::endl;
-    //MtmMat<int>::nonzero_iterator j = v.nzend();
-    for(MtmMat<int>::nonzero_iterator i = v.nzbegin(); i != v.nzend(); ++i){
+    MtmMat<int>::nonzero_iterator j = v.nzend();
+    for(MtmMat<int>::nonzero_iterator i = v.nzbegin(); i != j; ++i){
         std::cout << *i << "  ";
     }
     std::cout<<std::endl;
@@ -75,17 +75,18 @@ void FuncExample() {
 
 int main(){
     Dimensions a = Dimensions(2, 1);
-    Dimensions b = Dimensions(2,2);
-    MtmMatSq<int> m1(4, 1);
-    m1[0][0] = m1[3][0] = m1[2][3] = 0;
+    Dimensions b = Dimensions(4,4);
+    MtmMat<int> m1(b, 1);
+    m1[0][0] = m1[1][1] = 0;
     printNormal(m1);
-    //printNZ(m1);
+    printNZ(m1);
     printMat(m1);
     MtmMat<int> m2(b, 2);
     printNormal(m2);
     printMat(m2);
     m2[0][0] = 0; m2[0][1] = 1; m2[1][0] = 2; m2[1][1] = 3;
     printNormal(m2);
+    printNZ(m2);
     std::cout<<"testing"<<std::endl;
     MtmMat<int> m3(Dimensions(4,4), 0);
     for(int j = 0; j < m3.getDim().getCol(); j++){
@@ -93,18 +94,18 @@ int main(){
             m3[i][j] = i + j * (int)m3.getDim().getRow();
         }
     }
-    MtmVec<int> v1(2, 5);
-
+    MtmVec<int> v1(4, 5);
+    
     printMat(m3);
     for (MtmMath::MtmMat<int>::iterator go = m3.begin(); go != m3.end(); ++go) {
-       std::cout << *go << std::endl;
+        std::cout << *go << std::endl;
     }
-    //m1 = m2 * m3;
-    //printMat(m1);
+    m1 = m2 * m3;
+    printMat(m1);
     m1 = 5 * m2;
     printMat(m1);
-    //m1 = v1 * m2;
-    //printMat(m1);
+    m1 = v1 * m2;
+    printMat(m1);
     m1 = m2;
     printMat(m1);
     for(int i = 0; i < m1.getDim().getRow(); i++){
@@ -114,27 +115,28 @@ int main(){
         }
     }
     
-    //printMat(m1);
-    //m1.reshape(Dimensions(10,3));
-    //printMat(m1);
-    //m1.transpose();
-    //printMat(m1);
-    //printMat(m2);
-    //printMat(m3);
-    //printMat(m4);
-    //MtmMat<int> m4 = m1 + m3;
-    //FuncExample();
-    /*std::cout << "we are testing this \n";
-    MtmMat<int> m4(Dimensions(15,4), 0);
+    printMat(m1);
+    MtmMat<int> m17(Dimensions(5,6), 1);
+    printMat(m17);
+    m17.reshape(Dimensions(10,3));
+    printMat(m17);
+    m17.transpose();
+    printMat(m17);
+    printMat(m2);
+    printMat(m3);
+    MtmMat<int> m4 = m1 + m3;
+    printMat(m4);
+    FuncExample();
+    std::cout << "we are testing this \n";
+    
     
     printMat(m4);
-    m4[14][3] = 9;
-    m4[5][0] = 2;
+    m4[1][3] = m4[3][1] = m4[2][2] = 0;
+    m4[0][0] = 2;
     printMat(m4);
     MtmMat<int>::nonzero_iterator p = m4.nzbegin();
     
     
-    //(m4.nzend()).printItr();
     std::cout << "iterator pointing at: " << *p << std::endl;
     MtmMat<int>::nonzero_iterator g = m4.nzend();
     for(MtmMat<int>::nonzero_iterator i = m4.nzbegin(); i != g; ++i){
@@ -143,20 +145,15 @@ int main(){
         printMat(m4);
     }
     printMat(m4);
-    p = m4.nzbegin();
-    std::cout << "iterator pointing at: " << *p << std::endl;*/
-    //MtmMat<int>::iterator n = m2.begin();
-    //MtmMat<int>::iterator m = m2.begin();
-    //if(!(p == n)) std::cout << "yessssss" << std::endl;
-    //++n;
-    //std::cout << (*n) << std::endl;
-    //m2[1][0]=2;
-    //std::cout << (*n) << std::endl;
-    //++m;
-    //std::cout << (n == m) << std::endl;
-    
-    
-    
-    
+    std::cout << "iterator pointing at: " << *p << std::endl;
+    MtmMat<int>::iterator n = m2.begin();
+    MtmMat<int>::iterator m = m2.begin();
+    if(!(m == n)) std::cout << "yessssss" << std::endl;
+    ++n;
+    std::cout << (*n) << std::endl;
+    m2[1][0]=2;
+    std::cout << (*n) << std::endl;
+    ++m;
+    std::cout << (n == m) << std::endl;
     return 1;
 }
