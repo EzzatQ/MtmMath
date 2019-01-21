@@ -17,17 +17,17 @@ namespace MtmMath {
          * Rectangular Matrix constructor, m is the number of rows and columns in the matrix
          * and val is the initial value for the matrix elements
          */
-        MtmMatSq(size_t m, const T& val=T()): \
+        MtmMatSq(size_t m = 1, const T& val=T()): \
         MtmMat<T>(Dimensions(m,m),val) {};
         
         ~MtmMatSq(){}
         
-        MtmMatSq(const MtmMatSq& m): matrix(m.matrix){};
+        MtmMatSq(const MtmMatSq& m): MtmMat<T>(m){};
         
         MtmMatSq(const MtmMat<T>& m): MtmMat<T>(m){
-            if(m.dim.getCol()!= m.dim.getRow())
+            if(m.getDim().getCol()!= m.getDim().getRow())
                 throw MtmExceptions::DimensionMismatch();
-        };
+        }
         
         MtmMatSq& operator=(const MtmMat<T>& m){
             MtmMat<T>::operator=(m);

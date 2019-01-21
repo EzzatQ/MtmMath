@@ -16,10 +16,15 @@ void printMat(MtmMat<int> m){
 }
 
 int main(){
-    MtmMat<int> a(Dimensions(5,5), 3);
+    MtmMat<int> a(Dimensions(5,5), 0);
     printMat(a);
-    MtmMatTriag<int> b(a);
+    MtmMatSq<int> b(a);
     printMat(b);
+    MtmMatTriag<int> c(a);
+    printMat(c);
+    c[0][3] = 3;
+    printMat(c);
+    
     
     
     return 1;
