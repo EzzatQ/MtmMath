@@ -27,7 +27,11 @@ namespace MtmMath {
          * Vector constructor, m is the number of elements in it and val is the initial value for the matrix elements
          */
         explicit MtmVec(size_t m, const T& val = T()){
+            try{
             vect = vector<T>(m,val);
+            } catch(std::bad_alloc& e){
+                throw MtmExceptions::OutOfMemory();
+            }
             column = true;
         }
         

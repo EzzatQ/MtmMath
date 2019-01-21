@@ -15,7 +15,42 @@ namespace MtmMath {
     template <typename T>
     class MtmMatTriag : public MtmMatSq<T>{
         bool isUpper;
-        class 
+
+        class safeVec {
+            MtmVec<T>& rowVect;
+            int rowNum;
+            bool isUpper;
+        public:
+            
+            //template <class S>
+            safeVec(const MtmVec<T>& v, int rowNum_t, bool isUpper_t){
+                rowVect = v;
+                rowNum = rowNum_t;
+                isUpper = isUpper_t;
+            }
+        
+            safeVec(const safeVec& sv){
+                *this = sv;
+            }
+            
+            safeVec& operator=(const safeVec& sv){
+                rowVect = sv.rowvect;
+                rowNum = sv.rowNum;
+                isUpper = sv.isUpper;
+                return *this;
+            }
+            
+            T& operator[](int j){
+                if(j >= rowVect.size()) {
+                    throw MtmExceptions::AccessIllegalElement();
+                }
+                if((isUpper && j < rowNum) || (!isUpper && j > rowNum)){
+                    throw MtmExceptions::AccessIllegalElement();
+                }
+                return rowVect[j];
+            }
+        };
+        
     public:
 
         /*
@@ -23,26 +58,47 @@ namespace MtmMath {
          * val is the initial value for the matrix elements and isUpper_ is whether it is upper
          * Rectangular matrix (true means it is)
          */
-        MtmMatTriag<T> (size_t m, const T& val=T(), bool isUpper_t = true): MtmMatSq<T>(m,0){
+        MtmMatTriag(size_t m, const T& val=T(), bool isUpper_t = true):
+        MtmMatSq<T>(m,0){
             isUpper = isUpper_t;
-            legalAccess = new bool*[m];
-            for(int i = 0; i < m; i++){
-                legalAccess[i] = new int[m];
-            }
             for(int i = 0; i < m; i++){
                 for(int j = 0; j < m; j++)
                     if(isUpper){
-                        legalAccess[i][j] = i < j ? val : 0;
+                        this->matrix[i][j] = i < j ? val : 0;
                     } else {
-                        legalAccess[i][j] = i > j ? val : 0;
+                        this->matrix[i][j] = i > j ? val : 0;
                     }
             }
         }
         
-        ~MtmMatTriag<T>();
+        ~MtmMatTriag();
         
-        MtmMatTriag<T>(const MtmMatTriag<T>& m): MtmMatSq<T>(m){
+        MtmMatTriag(const MtmMatTriag<T>& m): MtmMatSq<T>(m, 0){
+            *this = m;
+        }
+        
+        MtmMatTriag(const MtmMatSq<T>& m): MtmMatSq<T>(m, 0){
+            
+        }
+        
+        MtmMatTriag(const MtmMat<T>& m): MtmMatSq<T>(m, 0){
+            
+        }
+        
+        
+        MtmMatTriag& operator=(const MtmMatTriag<T>& m){
             isUpper = m.isUpper;
+            this->matrix = m.matrix;
+            this->dim = m.dim;
+            return *this;
+        }
+        
+        safeVec& operator[](int i){
+            if(i >= this->dim.getRow()){
+                throw MtmExceptions::AccessIllegalElement();
+            }
+            safeVec v(this->matrix[i], i, isUpper);
+            return v;
         }
         
         //MtmMatTriag<T>(const MtmMat<T>& m);

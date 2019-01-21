@@ -271,6 +271,9 @@ namespace MtmMath {
     void MtmMat<T>::resize(Dimensions newDim, const T& val){
          if(newDim == dim) return;
         size_t newRow = newDim.getRow(), newCol = newDim.getCol();
+        if(!newRow || !newCol){
+            throw MtmExceptions::DimensionMismatch();
+        }
         size_t row = dim.getRow(), col = dim.getCol();
         bool isCol = matrix.is_column();
         size_t Old = isCol ? row : col;

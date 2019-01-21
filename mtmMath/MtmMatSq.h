@@ -21,7 +21,7 @@ namespace MtmMath {
         MtmMat<T>(Dimensions(m,m),val) {};
         
         MtmMatSq(const MtmMat<T>& m): MtmMat<T>(m){
-            if(m.getDim().getCol()!=m.getDim().getRow())
+            if(m.dim.getCol()!= m.dim.getRow())
                 throw MtmExceptions::DimensionMismatch();
         };
         
