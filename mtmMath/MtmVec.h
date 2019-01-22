@@ -26,19 +26,17 @@ namespace MtmMath {
         /*
          * Vector constructor, m is the number of elements in it and val is the initial value for the matrix elements
          */
-        explicit MtmVec(size_t m, const T& val = T()){
+        explicit MtmVec(size_t m = 1, const T& val = T()){
+            if(m < 1){
+                throw MtmExceptions::IllegalInitialization();
+            }
             try{
             vect = vector<T>(m,val);
-            } catch(std::bad_alloc& e){
+            } catch(...){
                 throw MtmExceptions::OutOfMemory();
             }
             column = true;
         }
-        
-        MtmVec(){
-            MtmVec(1);
-        }
-
         
         /*
          * Vector copy constructor, v is the vector you want to copy, itr will be set to the beginning.

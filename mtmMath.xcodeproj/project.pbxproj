@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		527945CE21F659F400D76290 /* triag_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 527945CA21F600E600D76290 /* triag_test.cpp */; };
+		5276AFD521F693050072E183 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5299B97021DA27E200EC0FD5 /* main.cpp */; };
 		52ED1F6421ECBE7E0053B0F8 /* Complex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 525A162A21E3710300C4FCC7 /* Complex.cpp */; };
 /* End PBXBuildFile section */
 
@@ -25,6 +25,7 @@
 
 /* Begin PBXFileReference section */
 		525A162A21E3710300C4FCC7 /* Complex.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Complex.cpp; sourceTree = "<group>"; };
+		5276AFD321F686B00072E183 /* ali_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ali_test.cpp; sourceTree = "<group>"; };
 		527945CA21F600E600D76290 /* triag_test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = triag_test.cpp; sourceTree = "<group>"; };
 		5299B96421DA27A100EC0FD5 /* mtmMath */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = mtmMath; sourceTree = BUILT_PRODUCTS_DIR; };
 		5299B96E21DA27E200EC0FD5 /* main_out */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main_out; sourceTree = "<group>"; };
@@ -73,6 +74,7 @@
 			children = (
 				5299B96E21DA27E200EC0FD5 /* main_out */,
 				52ED1F5F21ECBE070053B0F8 /* vect_test.cpp */,
+				5276AFD321F686B00072E183 /* ali_test.cpp */,
 				52ED1F5E21ECBE070053B0F8 /* matrix_test.cpp */,
 				52CE2FC121ED406F00197B0A /* complex_test.cpp */,
 				527945CA21F600E600D76290 /* triag_test.cpp */,
@@ -145,7 +147,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				527945CE21F659F400D76290 /* triag_test.cpp in Sources */,
+				5276AFD521F693050072E183 /* main.cpp in Sources */,
 				52ED1F6421ECBE7E0053B0F8 /* Complex.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

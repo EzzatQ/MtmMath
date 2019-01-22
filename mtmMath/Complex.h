@@ -6,6 +6,7 @@ namespace MtmMath {
         double re,im;
     public:
         Complex(double r = 0, double i = 0): re(r), im(i){}
+        Complex(int r){ re = r; im = 0;}
         Complex(const Complex& c): re(c.re), im(c.im){}
         Complex& operator=(const Complex&);
         Complex& operator+=(const Complex& c);

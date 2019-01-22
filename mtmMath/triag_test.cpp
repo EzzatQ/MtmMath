@@ -20,10 +20,31 @@ int main(){
     printMat(a);
     MtmMatSq<int> b(a);
     printMat(b);
+    MtmMatTriag<int> b2(b);
+    printMat(b2);
     MtmMatTriag<int> c(a);
     printMat(c);
     c[0][3] = 3;
     printMat(c);
+    MtmMatTriag<int> d(5, 2, false);
+    printMat(d);
+    MtmMatTriag<int> e(5, 2, true);
+    printMat(e);
+    MtmMatTriag<int> e2(e);
+    printMat(e2);
+    MtmMat<int> f = e + d;
+    printMat(f);
+    MtmMatSq<int> g(5, 2);
+    printMat(g);
+    MtmMat<int> h = f - g;
+    printMat(h);
+    printMat(e);
+    e.transpose();
+    printMat(e);
+    e.resize(Dimensions(10,10), 3);
+    printMat(e);
+    e.reshape(Dimensions(10,9));
+    printMat(e);
     
     
     

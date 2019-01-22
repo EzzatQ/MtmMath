@@ -73,9 +73,9 @@ namespace MtmMath {
             for(int i = 0; i < m; i++){
                 for(int j = 0; j < m; j++)
                     if(isUpper){
-                        this->matrix[i][j] = i < j ? val : 0;
+                        this->matrix[i][j] = i <= j ? val : 0;
                     } else {
-                        this->matrix[i][j] = i > j ? val : 0;
+                        this->matrix[i][j] = i >= j ? val : 0;
                     }
             }
         }
