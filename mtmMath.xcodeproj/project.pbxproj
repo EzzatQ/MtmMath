@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		52E30DB721F88A3B00BB1271 /* boris_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52E30DB621F88A3B00BB1271 /* boris_main.cpp */; };
+		52E30DB921F8B4B400BB1271 /* boris_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52E30DB621F88A3B00BB1271 /* boris_main.cpp */; };
 		52ED1F6421ECBE7E0053B0F8 /* Complex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 525A162A21E3710300C4FCC7 /* Complex.cpp */; };
 /* End PBXBuildFile section */
 
@@ -149,7 +149,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				52E30DB721F88A3B00BB1271 /* boris_main.cpp in Sources */,
+				52E30DB921F8B4B400BB1271 /* boris_main.cpp in Sources */,
 				52ED1F6421ECBE7E0053B0F8 /* Complex.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
