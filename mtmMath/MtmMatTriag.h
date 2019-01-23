@@ -10,12 +10,12 @@
 using std::size_t;
 
 namespace MtmMath {
-
-
+    
+    
     template <typename T>
     class MtmMatTriag : public MtmMatSq<T>{
         bool isUpper;
-
+        
         class safeVec{
             MtmVec<T>* rowVect;
             int rowNum;
@@ -27,7 +27,7 @@ namespace MtmMath {
                 rowNum = rowNum_t;
                 isUpper = isUpper_t;
             }
-        
+            
             safeVec(const safeVec& sv){
                 *this = sv;
             }
@@ -61,7 +61,7 @@ namespace MtmMath {
         };
         
     public:
-
+        
         /*
          * Triangular Matrix constructor, m is the number of rows and columns in the matrix,
          * val is the initial value for the matrix elements and isUpper_ is whether it is upper
@@ -158,7 +158,7 @@ namespace MtmMath {
         }
         
     };
-
+    
 }
 
 #endif //EX3_MTMMATTRIAG_H

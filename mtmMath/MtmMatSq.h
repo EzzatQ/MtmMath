@@ -26,24 +26,24 @@ namespace MtmMath {
         
         MtmMatSq(const MtmMat<T>& m): MtmMat<T>(m){
             if(m.getDim().getCol()!= m.getDim().getRow())
-                throw MtmExceptions::DimensionMismatch();
+                throw MtmExceptions::DimensionMismatch(m.getDim() ,m.getDim());
         }
         
         MtmMatSq& operator=(const MtmMat<T>& m){
             MtmMat<T>::operator=(m);
             return *this;
         }
-
+        
         virtual void resize(Dimensions dim, const T& val=T()){
             if(dim.getRow() != dim.getCol()){
-                throw MtmExceptions::DimensionMismatch();
+                throw MtmExceptions::DimensionMismatch(dim,dim);
             }
             MtmMat<T>::resize(dim, val);
         }
         
         void reshape(Dimensions dim){
             if(dim != this->dim){
-                throw MtmExceptions::ChangeMatFail();
+                throw MtmExceptions::ChangeMatFail(dim, dim);
             }
         }
     };

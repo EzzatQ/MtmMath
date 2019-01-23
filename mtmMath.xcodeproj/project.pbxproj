@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5276AFD521F693050072E183 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5299B97021DA27E200EC0FD5 /* main.cpp */; };
+		52E30DB721F88A3B00BB1271 /* boris_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52E30DB621F88A3B00BB1271 /* boris_main.cpp */; };
 		52ED1F6421ECBE7E0053B0F8 /* Complex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 525A162A21E3710300C4FCC7 /* Complex.cpp */; };
 /* End PBXBuildFile section */
 
@@ -38,6 +38,7 @@
 		5299B97521DA27E300EC0FD5 /* Auxilaries.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = Auxilaries.h; sourceTree = "<group>"; };
 		5299B97621DA27E300EC0FD5 /* MtmVec.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = MtmVec.h; sourceTree = "<group>"; };
 		52CE2FC121ED406F00197B0A /* complex_test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = complex_test.cpp; sourceTree = "<group>"; };
+		52E30DB621F88A3B00BB1271 /* boris_main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = boris_main.cpp; sourceTree = "<group>"; };
 		52ED1F5E21ECBE070053B0F8 /* matrix_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = matrix_test.cpp; sourceTree = "<group>"; };
 		52ED1F5F21ECBE070053B0F8 /* vect_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vect_test.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -78,6 +79,7 @@
 				52ED1F5E21ECBE070053B0F8 /* matrix_test.cpp */,
 				52CE2FC121ED406F00197B0A /* complex_test.cpp */,
 				527945CA21F600E600D76290 /* triag_test.cpp */,
+				52E30DB621F88A3B00BB1271 /* boris_main.cpp */,
 				5299B97021DA27E200EC0FD5 /* main.cpp */,
 				5299B97521DA27E300EC0FD5 /* Auxilaries.h */,
 				5299B97421DA27E300EC0FD5 /* MtmExceptions.h */,
@@ -147,7 +149,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5276AFD521F693050072E183 /* main.cpp in Sources */,
+				52E30DB721F88A3B00BB1271 /* boris_main.cpp in Sources */,
 				52ED1F6421ECBE7E0053B0F8 /* Complex.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

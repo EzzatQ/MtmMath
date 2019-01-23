@@ -16,26 +16,27 @@ namespace MtmMath {
     template <typename T>
     class MtmVec {
     protected:
-   // public:////////////////////////
         vector<T> vect;
         bool column;
-
         
     public:
         
         /*
          * Vector constructor, m is the number of elements in it and val is the initial value for the matrix elements
          */
-        explicit MtmVec(size_t m = 1, const T& val = T()){
-            if(m < 1){
+        explicit MtmVec(size_t m, const T& val = T()){
+            if(m == 0)
                 throw MtmExceptions::IllegalInitialization();
-            }
             try{
-            vect = vector<T>(m,val);
-            } catch(...){
+                vect = vector<T>(m,val);
+            } catch(std::bad_alloc& e){
                 throw MtmExceptions::OutOfMemory();
             }
             column = true;
+        }
+        
+        MtmVec(){
+            MtmVec(1);
         }
         
         /*
@@ -64,7 +65,6 @@ namespace MtmMath {
         bool operator==(const MtmVec<T>& v);
         bool operator!=(const MtmVec<T>& v);
         
-
         /*
          * Function that get function object f and uses it's () operator on each element in the vectors.
          * It outputs the function object's * operator after iterating on all the vector's elements
@@ -102,7 +102,7 @@ namespace MtmMath {
         
         
         class iterator{
-        
+            
             typename vector<T>::iterator itr;
             
         public:
@@ -180,7 +180,7 @@ namespace MtmMath {
             nonzero_iterator a(this->end());
             return a;
         }
-
+        
         /*
          * Resizes a vector to dimension dim, new elements gets the value val.
          * Notice vector cannot transpose through this method.
@@ -259,7 +259,8 @@ namespace MtmMath {
     
     template <class T>
     MtmVec<T>& MtmVec<T>::operator-=(const MtmVec& v){
-        return (*this) += -v;
+        MtmVec<T> w = v;
+        return (*this) += -w;
     }
     
     template <class T>
@@ -314,13 +315,13 @@ namespace MtmMath {
             }
             return true;
         } else
-           return false;
-           }
-           
-           template<class T>
-           bool MtmVec<T>::operator!=(const MtmVec<T>& v){
-               return !(*this == v);
-           }
+            return false;
+    }
+    
+    template<class T>
+    bool MtmVec<T>::operator!=(const MtmVec<T>& v){
+        return !(*this == v);
+    }
     
     template <class T>
     void MtmVec<T>::resize(Dimensions dim, const T& val){
@@ -346,9 +347,9 @@ namespace MtmMath {
         }
         dim = newDim;
     }
-        
     
-        
+    
+    
 }
 
 #endif //EX3_MTMVEC_H

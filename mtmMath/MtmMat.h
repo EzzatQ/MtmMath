@@ -36,6 +36,17 @@ namespace MtmMath {
             return dim;
         }
         
+        ///////////////////////
+        size_t Rows(){
+            return dim.getRow();
+        }
+        
+        size_t Columns(){
+            return dim.getCol();
+        }
+        //////////////////////
+        
+        
         //might need changing
         MtmMat& operator-();
         bool operator==(const MtmMat& m){
@@ -48,7 +59,6 @@ namespace MtmMath {
         MtmMat& operator*=(const MtmMat& m);
         MtmMat& operator*=(const T& s);
         MtmMat& operator*=(const MtmVec<T>& v);
-        MtmMat& operator/=(const T& s);
         /*
          * Function that get function object f and uses it's () operator on each element in the matrix columns.
          * It outputs a vector in the size of the matrix columns where each element is the final output
@@ -91,7 +101,7 @@ namespace MtmMath {
             MtmMat<T>& matrix;
             int i;
             int j;
-
+            
         public:
             
             iterator(MtmMat<T>& m): matrix(m), i(0), j(0){}
@@ -149,7 +159,7 @@ namespace MtmMath {
         
         class nonzero_iterator: public iterator{
         public:
-            explicit nonzero_iterator(iterator i): iterator(i){}
+           explicit nonzero_iterator(iterator i): iterator(i){}
             
             nonzero_iterator(MtmMat<T>& m = MtmMat<T>()): iterator(m){
                 if(*(*this) == 0) this->operator++();
@@ -168,11 +178,20 @@ namespace MtmMath {
                 return *this;
                 
             }
+            
             bool operator==(const nonzero_iterator a) const{
                 return iterator::operator==(a);
             }
             
             bool operator!=(const nonzero_iterator a) const{
+                return !((*this) == a);
+            }
+            
+            bool operator==(const iterator a) const{
+                return iterator::operator==(a);
+            }
+            
+            bool operator!=(const iterator a) const{
                 return !((*this) == a);
             }
         };
@@ -297,7 +316,7 @@ namespace MtmMath {
         size_t newCol = newDim.getCol(), newRow = newDim.getRow();
         size_t col = dim.getCol(), row = dim.getRow();
         if(newCol * newRow != col * row){
-            throw MtmExceptions::ChangeMatFail();
+            throw MtmExceptions::ChangeMatFail(dim, newDim);
         }
         T* tempArr = new T[col*row];
         for(int j = 0; j < col; j++){
@@ -342,7 +361,7 @@ namespace MtmMath {
     template <class T>
     MtmMat<T>& MtmMat<T>::operator+=(const MtmMat<T>& m){
         if(dim != m.dim){
-            throw MtmExceptions::DimensionMismatch();
+            throw MtmExceptions::DimensionMismatch(dim, m.dim);
         }
         size_t row = dim.getRow(), col = dim.getCol();
         for(int i = 0; i < row; i++){
@@ -391,7 +410,8 @@ namespace MtmMath {
     
     template <class T>
     MtmMat<T> operator+(const MtmVec<T>& v, const MtmMat<T>& m){
-        return m + v;
+        MtmMat<T> temp(v);
+        return m + temp;
     }
     
     template <class T>
@@ -443,7 +463,7 @@ namespace MtmMath {
         size_t mRow = m.dim.getRow(), mCol = m.dim.getCol();
         size_t row = dim.getRow(), col = dim.getCol();
         if(mRow != col){
-            throw MtmExceptions::DimensionMismatch();
+            throw MtmExceptions::DimensionMismatch(dim ,m.dim );
         }
         MtmMat<T> result(Dimensions(mRow,col),T());
         for (int i = 0; i < row; i++) {
@@ -490,7 +510,7 @@ namespace MtmMath {
     MtmMat<T>& MtmMat<T>::operator*=(const MtmVec<T>& v){
         size_t row = dim.getRow(), col = dim.getCol();
         if(!v.is_column() || v.size() != col){
-            throw MtmExceptions::DimensionMismatch();
+            throw MtmExceptions::DimensionMismatch(dim, Dimensions(row, 1));
         }
         MtmMat<T> newMat(Dimensions(row, 1));
         for (int i = 0; i < row;  i++){
@@ -521,25 +541,6 @@ namespace MtmMath {
         MtmMat<T> c(a), d(b);
         return c * b;
     }
-    
-    template <class T>
-    MtmMat<T>& MtmMat<T>::operator/=(const T& s){
-        size_t row = dim.getRow(), col = dim.getCol();
-        for (int i = 0; i < row;  i++){
-            for(int j = 0; j < col; j++){
-                (*this)[i][j] /= s;
-            }
-        }
-        return *this;
-    }
-    
-    template <class T>
-    MtmMat<T> operator/(const MtmMat<T>& m, const T& s){
-        MtmMat<T> c(m);
-        return c /= s;
-    }
-
-    
 }
 
 

@@ -18,7 +18,10 @@ namespace MtmMath {
          * "MtmError: Illegal initialization values" in what() class function
          */
         class IllegalInitialization : public MtmExceptions {
-            
+        public:
+            std::string what(){
+                return "MtmError: Illegal initialization values";
+            }
         };
         
         /*
@@ -26,7 +29,10 @@ namespace MtmMath {
          * "MtmError: Out of memory" in what() class function
          */
         class OutOfMemory : public MtmExceptions {
-            
+        public:
+            std::string what(){
+                return "MtmError: Out of memory";
+            }
         };
         
         /*
@@ -35,7 +41,15 @@ namespace MtmMath {
          * in what() class function
          */
         class DimensionMismatch : public MtmExceptions {
-            
+            Dimensions dim1;
+            Dimensions dim2;
+        public:
+            DimensionMismatch(){}
+            DimensionMismatch(Dimensions newDim1,Dimensions newDim2):dim1(newDim1) ,dim2(newDim2){}
+            std::string what(){
+                
+                return "MtmError: Dimension mismatch: "+ dim1.to_string() +" " + dim2.to_string();
+            }
         };
         
         /*
@@ -44,7 +58,15 @@ namespace MtmMath {
          * in what() class function
          */
         class ChangeMatFail : public MtmExceptions {
-            
+            Dimensions dim1;
+            Dimensions dim2;
+        public:
+            ChangeMatFail(){}
+            ChangeMatFail(Dimensions newDim1,Dimensions newDim2):dim1(newDim1) ,dim2(newDim2){}
+            std::string what(){
+                
+                return "MtmError: Change matrix shape failed from: "+ dim1.to_string() +" " + dim2.to_string();
+            }
         };
         
         /*
@@ -52,7 +74,10 @@ namespace MtmMath {
          * "MtmError: Attempt access to illegal element" in what() class function
          */
         class AccessIllegalElement : public MtmExceptions {
-            
+        public:
+            std::string what(){
+                return "MtmError: Attempt access to illegal element";
+            }
         };
     }
 }
