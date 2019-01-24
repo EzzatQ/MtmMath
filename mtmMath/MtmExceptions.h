@@ -44,7 +44,6 @@ namespace MtmMath {
             Dimensions dim1;
             Dimensions dim2;
         public:
-            DimensionMismatch(){}
             DimensionMismatch(Dimensions newDim1,Dimensions newDim2):dim1(newDim1) ,dim2(newDim2){}
             std::string what(){
                 
@@ -61,7 +60,6 @@ namespace MtmMath {
             Dimensions dim1;
             Dimensions dim2;
         public:
-            ChangeMatFail(){}
             ChangeMatFail(Dimensions newDim1,Dimensions newDim2):dim1(newDim1) ,dim2(newDim2){}
             std::string what(){
                 

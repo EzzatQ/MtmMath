@@ -13,13 +13,13 @@ using std::endl;
 
 static void printm(MtmMat<int> m){
 
-    for(int i=0; i<m.Rows(); i++){
+    for(int i=0; i<m.getDim().getRow(); i++){
 
-        for(int j=0; j<m.Columns(); j++){
+        for(int j=0; j<m.getDim().getCol(); j++){
 
             std::cout << m[i][j] ;
             std::cout << " ";
-            if(j==m.Columns()-1)
+            if(j==m.getDim().getCol()-1)
                 std::cout << std::endl;
 
         }
@@ -27,25 +27,6 @@ static void printm(MtmMat<int> m){
     std::cout << std::endl;
 }
 
-
-
-bool operator ==(MtmMat<int> &m1, MtmMat<int>& m2){
-
-    if(m1.Rows()!=m2.Rows()||m1.Columns()!=m2.Columns())
-        return false;
-
-    for(int i=0; i<m1.Rows(); i++) {
-        for (int j = 0; j < m2.Columns(); j++) {
-
-            if(m1[i][j]!=m2[i][j])
-                return false;
-
-        }
-    }
-
-    return true;
-
-}
 
 void exceptionsTest() {
     try {
@@ -56,13 +37,13 @@ void exceptionsTest() {
         cout<< e.what() <<endl;
     }
 
-    try {
+    /*try {
         MtmMat<int> m1(Dimensions(10,100000000000),5);
         assert(false);
     }
     catch (MtmExceptions::OutOfMemory& e){
         cout<< e.what() <<endl;
-    }
+    }*/
 
     try {
         MtmVec<int> v1(3,5);
@@ -221,11 +202,11 @@ void testOperator(){
     MtmMat<int> v2(Dimensions(1, 3),1);
     MtmMat<int> m7(Dimensions(3, 3), 1);
     m6 = v1 * v2;
-    printm(m6);
-    printm(m7);
     assert(m6 == m7);
     m6 = v2 * v1;
     MtmMat<int> m8(Dimensions(1, 1), 3);
+    printm(m6);
+    printm(m8);
     assert(m6 == m8);
     MtmMat<int> m9(Dimensions(2, 3), 1);
     m9[0][0] = 1;

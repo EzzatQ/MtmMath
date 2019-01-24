@@ -32,13 +32,15 @@ bool Complex::operator==(const Complex& c) const {
 }
 
 Complex& Complex::operator*=(const Complex& c){
-    re = re * c.re - im * c.im;
-    im = re * c.im + im * c.re;
+    int t_re = re * c.re - im * c.im;
+    int t_im = re * c.im + im * c.re;
+    re = t_re;
+    im = t_im;
     return *this;
 }
 
 Complex MtmMath::operator*(const Complex& a, const Complex& b){
-    Complex c = a;
+    Complex c(a);
     return c *= b;
 }
 

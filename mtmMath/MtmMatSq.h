@@ -13,6 +13,7 @@ namespace MtmMath {
     template <typename T>
     class MtmMatSq : public MtmMat<T>{
     public:
+        
         /*
          * Rectangular Matrix constructor, m is the number of rows and columns in the matrix
          * and val is the initial value for the matrix elements
@@ -26,7 +27,7 @@ namespace MtmMath {
         
         MtmMatSq(const MtmMat<T>& m): MtmMat<T>(m){
             if(m.getDim().getCol()!= m.getDim().getRow())
-                throw MtmExceptions::DimensionMismatch(m.getDim() ,m.getDim());
+                throw MtmExceptions::IllegalInitialization();
         }
         
         MtmMatSq& operator=(const MtmMat<T>& m){
@@ -36,15 +37,13 @@ namespace MtmMath {
         
         virtual void resize(Dimensions dim, const T& val=T()){
             if(dim.getRow() != dim.getCol()){
-                throw MtmExceptions::DimensionMismatch(dim,dim);
+                throw MtmExceptions::ChangeMatFail(this->dim, dim);
             }
             MtmMat<T>::resize(dim, val);
         }
         
         void reshape(Dimensions dim){
-            if(dim != this->dim){
-                throw MtmExceptions::ChangeMatFail(dim, dim);
-            }
+            throw MtmExceptions::ChangeMatFail(this->dim, dim);
         }
     };
     

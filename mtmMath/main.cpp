@@ -20,13 +20,13 @@ void exceptionsTest() {
         cout<< e.what() <<endl;
     }
 
-    try {
+    /*try {
         MtmMat<int> m1(Dimensions(10,100000000000),5);
         assert(false);
     }
     catch (MtmExceptions::OutOfMemory& e){
         cout<< e.what() <<endl;
-    }
+    }*/
 
     try {
         MtmVec<int> v1(3,5);
